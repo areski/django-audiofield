@@ -1,0 +1,9 @@
+global-exclude *.pyc
+
+include README.rst
+include COPYING
+
+
+recursive-include audiofield *
+
+

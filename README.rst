@@ -1,0 +1,137 @@
+=================
+django-audiofield
+=================
+
+
+Installation
+============
+
+Install Django-Audiofield::
+
+    python setup.py install
+
+
+Dependencies
+------------
+
+Install dependencies on Debian::
+    
+    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 ffmpeg
+
+
+Install dependencies on Redhat/CentOS::
+    
+    yum -y install python-setuptools libsox-fmt-mp3 libsox-fmt-all mpg321 ffmpeg
+
+
+Settings
+========
+
+in your settings.py file::
+
+    # Set Following variable
+    #MEDIA_ROOT = ''
+
+    #MEDIA_URL = ''
+    
+    In MIDDLEWARE_CLASSES add 'audiofield.middleware.threadlocals.ThreadLocals'
+
+    In INSTALLED_APPS add 'audiofield'
+
+
+Usage
+=====
+
+Add the following lines in your models.py file::
+
+    from django.conf import settings
+    from audiofield.fields import AudioField
+    import os.path
+
+    # Add the audio field to your model
+    audio_file = AudioField(upload_to='your/upload/dir', blank=True,
+                            ext_whitelist=(".mp3", ".wav", ".ogg"),
+                            help_text=("Allowed type - .mp3, .wav, .ogg"))
+
+
+    # Add this method to your model
+    def audio_file_player(self):
+        """audio player tag for admin"""
+        if self.audio_file:
+            file_url = settings.MEDIA_URL + str(self.audio_file)
+            player_string = '<ul class="playlist"><li style="width:250px;">\
+            <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(self.audio_file.name))
+            return player_string
+    audio_file_player.allow_tags = True
+    audio_file_player.short_description = _('Audio file player')
+
+
+Add the following lines in your admin.py::
+
+
+    from your_app.models import your_model_name
+
+    # add 'audio_file_player' tag to your admin view
+    list_display = (..., 'audio_file_player', ...)
+
+
+If you are not using the installation script, please copy following template 
+file to your template directory::
+
+    cp audiofield/templates/common_audiofield.html /path/to/your/templates/directory/
+
+    
+Add the following in your template files (like admin/change_form.html, admin/change_list.html etc.
+in which you are using audio field type)::
+
+
+    {% block extrahead %}
+    {{ block.super }}
+        {% include "common_audiofield.html" %}
+    {% endblock %}
+
+
+Then perform following commands to create the table and collect the static files::
+
+    ./manage.py syncdb
+
+    ./manage.py collectstatic
+
+
+Create audiofield.log file::
+
+    touch /var/log/audio-field.log
+
+
+
+Contributing
+============
+
+If you've found a bug, implemented a feature or customized the template and
+think it is useful then please consider contributing. Patches, pull requests or
+just suggestions are welcome!
+
+Source code: http://github.com/Star2Billing/django-audiofield
+
+
+If you don’t like Github and Git you’re welcome to send regular patches.
+
+Bug tracker: https://github.com/Star2Billing/django-audiofield/issues
+
+
+
+License
+=======
+
+Copyright (c) 2011 Star2Billing S.L. <info@star2billing.com>
+
+django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
+
+
+Credit
+======
+
+Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit 
+http://www.star2billing.com  or email us at info@star2billing.com
+
+
