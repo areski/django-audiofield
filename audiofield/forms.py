@@ -16,15 +16,16 @@ class AudioFormField(FileField):
 
 
 class AdminAudioFileForm(ModelForm):
-    """AudioFile ModelForm"""
-
+    """This form aims to be used in the django admin, support
+    all the features for convertion per default"""
     class Meta:
         model = AudioFile
         fields = ['name', 'audio_file']
 
 
 class CustomerAudioFileForm(ModelForm):
-    """CustomerAudioForm"""
+    """The following form aims to be used on frontend to power
+    simple upload of audio files without convertion"""
     audio_file = forms.FileField(widget=CustomerAudioFileWidget)
     class Meta:
         model = AudioFile

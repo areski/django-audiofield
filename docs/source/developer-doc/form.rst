@@ -10,11 +10,19 @@ Forms Definition
 
 This form aims to be used in the django admin, support all the features for convertion per default::
     
-    class AdminAudioFileForm(ModelForm)
+    class AdminAudioFileForm(ModelForm):
+        class Meta:
+            model = AudioFile
+            fields = ['name', 'audio_file']
 
 The following form aims to be used on frontend to power simple upload of audio files without convertion::
-    
-    CustomerAudioFileForm(ModelForm)
+
+    class CustomerAudioFileForm(ModelForm):
+        audio_file = forms.FileField(widget=CustomerAudioFileWidget)
+        class Meta:
+            model = AudioFile
+            fields = ['name', 'audio_file']
+            exclude = ('user',)
 
 
 Forms Usage
@@ -25,16 +33,16 @@ We provide you a simple example of using the forms to list and upload audio file
 In url.py::
     
     ...
-    (r'^$', 'frontend.views.index_view'),
+    (r'^$', 'frontend.views.add_audio'),
  
 In view.py::    
     
     ...
     @login_required
-    def index_view(request):
-        template = 'frontend/demo.html'
+    def add_audio(request):
+        template = 'frontend/add_audio.html'
         form = CustomerAudioFileForm()
-        audio_list = AudioFile.objects.all()
+
         # Add audio
         if request.method == 'POST':
             form = CustomerAudioFileForm(request.POST, request.FILES)
@@ -42,16 +50,15 @@ In view.py::
                 obj = form.save(commit=False)
                 obj.user = User.objects.get(username=request.user)
                 obj.save()
-                request.session["msg"] = _('"%(name)s" is added successfully.') %\
-                {'name': request.POST['name']}
                 return HttpResponseRedirect('/')
 
             # To retain frontend widget, if form.is_valid() == False
             form.fields['audio_file'].widget = CustomerAudioFileWidget()
+
         data = {
            'audio_form': form,
-           'audio_list': audio_list,
         }
+
         return render_to_response(template, data,
                context_instance=RequestContext(request))
                
@@ -70,8 +77,10 @@ In view.py::
     ...
     @login_required
     def edit_audio(request, object_id):
+
         obj = AudioFile.objects.get(pk=object_id)
         form = CustomerAudioFileForm(instance=obj)
+
         if request.GET.get('delete'):
             # perform delete
             if obj.audio_file:
@@ -84,14 +93,14 @@ In view.py::
             form = CustomerAudioFileForm(request.POST, request.FILES, instance=obj)
             if form.is_valid():
                 form.save()
-                request.session["msg"] = _('"%(name)s" is updated successfully.') \
-                % {'name': request.POST['name']}
                 return HttpResponseRedirect('/')
         
-        template = 'frontend/audio.html'
+        template = 'frontend/edit_audio.html'
+
         data = {
            'audio_form': form,
         }
+        
         return render_to_response(template, data,
                context_instance=RequestContext(request))
 
