@@ -13,6 +13,6 @@ How to run tests
 
 **2. Run AudiofileTestCase**::
 
-    $ python manage.py test audiofield.AudiofileTestCase --verbosity=2
+    $ python manage.py test audiofield.AudiofieldAdminInterfaceTestCase --verbosity=2
 
 

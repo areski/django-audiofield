@@ -49,20 +49,24 @@ Use PIP to install the dependencies listed in the requirments file,::
 Configuration
 =============
 
-- Add ``admin_tools_stats`` & ``chart_tools`` into INSTALLED_APPS in settings.py::
+Add ``admin_tools_stats`` & ``chart_tools`` into INSTALLED_APPS in settings.py::
 
     INSTALLED_APPS = (
         ...
         'audiofield',
         ...)
 
-- Add the following code to your middleware::
+Add the following code to your middleware::
     
     MIDDLEWARE_CLASSES = (
         ...
         'audiofield.middleware.threadlocals.ThreadLocals',
     )
 
-- Run ``manage.py syncdb`` and ``manage.py collectstatic``
+Run following commands::
+
+    python manage.py syncdb
+
+    python manage.py collectstatic
 
 
