@@ -3,6 +3,9 @@ django-audiofield
 =================
 
 
+.. image:: https://github.com/Star2Billing/django-audiofield/raw/master/docs/source/_static/django-admin-audiofield.png
+
+
 Installation
 ============
 
