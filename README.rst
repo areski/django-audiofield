@@ -139,6 +139,12 @@ If you don’t like Github and Git you’re welcome to send regular patches.
 Bug tracker: https://github.com/Star2Billing/django-audiofield/issues
 
 
+Documentation
+=============
+
+Extensive documentation is available on 'Read the Docs':
+http://django-audiofield.readthedocs.org
+
 
 License
 =======
