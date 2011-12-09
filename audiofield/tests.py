@@ -38,7 +38,7 @@ class AudiofieldAdminInterfaceTestCase(BaseAuthenticatedClient):
         self.assertEqual(response, True)
 
     def test_admin_audiofield(self):
-        """Test Function to check Audiofield/ Admin pages"""
+        """Test Function to check Audiofield Admin pages"""
         response = self.client.get('/admin/audiofield/')
         self.failUnlessEqual(response.status_code, 200)
 

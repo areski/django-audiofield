@@ -6,7 +6,7 @@ Objects Description
 .. _AudioFile-model:
 
 :class:`AudioFile`
--------------------------------
+------------------
 
 Describe model of the AudioFile
 
