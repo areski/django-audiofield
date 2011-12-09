@@ -49,7 +49,7 @@ Use PIP to install the dependencies listed in the requirments file,::
 Configuration
 =============
 
-Add ``admin_tools_stats`` & ``chart_tools`` into INSTALLED_APPS in settings.py::
+Add ``audiofield`` into INSTALLED_APPS in settings.py::
 
     INSTALLED_APPS = (
         ...
