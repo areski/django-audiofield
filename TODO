@@ -3,8 +3,7 @@
 TODO
 ====
 
-
-- Add test
++ integrate with django-storage (http://django-storages.readthedocs.org/)
 
 
 
