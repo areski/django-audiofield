@@ -41,6 +41,14 @@ in your settings.py file::
 
     In INSTALLED_APPS add 'audiofield'
 
+    # Frontend widget values
+    CHANNEL_TYPE_VALUE = 0  # 0-Keep original, 1-Mono, 2-Stereo
+
+    FREQ_TYPE_VALUE = 8000  # 0-Keep original, 8000-8000Hz, 16000-16000Hz, 22050-22050Hz,
+                         # 44100-44100Hz, 48000-48000Hz, 96000-96000Hz
+
+    CONVERT_TYPE_VALUE = 0 # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
+
 
 Usage
 =====
