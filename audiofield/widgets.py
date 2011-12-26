@@ -110,7 +110,7 @@ class CustomerAudioFileWidget(AdminFileWidget):
         freq_select_box = '<input type="hidden" name="freq_type" value="' + str(settings.FREQ_TYPE_VALUE) + '"/>'
 
         output = []
-        output.append('<table style="border-style: none;">')
+        output.append('<table style="border-style: none;width:300px;">')
 
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
@@ -119,11 +119,11 @@ class CustomerAudioFileWidget(AdminFileWidget):
                                   % (file_url, os.path.basename(value.name))))
             output.append(item % (_('Change:'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
         else:
-            output.append(item % ('', input + '<br/>Allowed type - .mp3, .wav, .ogg'))
+            output.append(item % (input + '<br/>Allowed type - .mp3, .wav, .ogg', ''))
 
-        output.append(item % ('',file_select_box))
-        output.append(item % ('',channel_select_box))
-        output.append(item % ('',freq_select_box))
+        output.append(item % (file_select_box, ''))
+        output.append(item % (channel_select_box, ''))
+        output.append(item % (freq_select_box, ''))
 
         output.append('</table>')
 
