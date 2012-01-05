@@ -103,14 +103,13 @@ class CustomerAudioFileWidget(AdminFileWidget):
         input = super(forms.widgets.FileInput, self).render(name, value, attrs)
 
         file_url = ''
-        item = '<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
+        item = '<div style="float:left;line-height:18px;padding-top:6px;text-align:right;">%s</div><div style="width:300px;margin-left:70px;">%s</div>'
         
         file_select_box = '<input type="hidden" name="convert_type" value="' + str(settings.CONVERT_TYPE_VALUE) + '"/>'
         channel_select_box = '<input type="hidden" name="channel_type" value="' + str(settings.CHANNEL_TYPE_VALUE) + '"/>'
         freq_select_box = '<input type="hidden" name="freq_type" value="' + str(settings.FREQ_TYPE_VALUE) + '"/>'
 
         output = []
-        output.append('<table style="border-style: none;width:300px;">')
 
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
@@ -119,13 +118,12 @@ class CustomerAudioFileWidget(AdminFileWidget):
                                   % (file_url, os.path.basename(value.name))))
             output.append(item % (_('Change:'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
         else:
-            output.append(item % (input + '<br/>Allowed type - .mp3, .wav, .ogg', ''))
+            output.append(item % (_('Browse'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
 
         output.append(item % (file_select_box, ''))
         output.append(item % (channel_select_box, ''))
         output.append(item % (freq_select_box, ''))
 
-        output.append('</table>')
 
         return mark_safe(u''.join(output))
 
