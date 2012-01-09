@@ -68,9 +68,9 @@ class AdminAudioFileWidget(AdminFileWidget):
             output.append(item % (_('Currently:'),
                                   '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change:'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
+            output.append(item % (_('Change:'), input + '<br/>Allowed format - mp3, wav and ogg'))
         else:
-            output.append(item % (_('Upload:'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
+            output.append(item % (_('Upload:'), input + '<br/>Allowed format - mp3 wav and ogg'))
 
         output.append(item % (_('Convert To') + ':', file_select_box))
         output.append(item % (_('Channel') + ':', channel_select_box))
