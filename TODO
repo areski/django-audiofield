@@ -1,9 +1,12 @@
-
 ====
 TODO
 ====
 
-+ integrate with django-storage (http://django-storages.readthedocs.org/)
+- integrate with django-storage (http://django-storages.readthedocs.org/)
+
+- support more convertion
+
+- use gstreamer 
 
 
 
