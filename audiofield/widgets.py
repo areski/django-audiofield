@@ -103,7 +103,6 @@ class CustomerAudioFileWidget(AdminFileWidget):
         input = super(forms.widgets.FileInput, self).render(name, value, attrs)
 
         file_url = ''
-        item = '<div style="float:left;line-height:18px;padding-top:6px;text-align:right;">%s</div><div style="width:300px;margin-left:70px;">%s</div>'
         
         file_select_box = '<input type="hidden" name="convert_type" value="' + str(settings.CONVERT_TYPE_VALUE) + '"/>'
         channel_select_box = '<input type="hidden" name="channel_type" value="' + str(settings.CHANNEL_TYPE_VALUE) + '"/>'
@@ -112,13 +111,15 @@ class CustomerAudioFileWidget(AdminFileWidget):
         output = []
 
         if value and type(value).__name__ != 'str':
+            item = '<div style="float:left;line-height:18px;padding-top:6px;text-align:right;">%s</div><div style="width:300px;margin-left:70px;">%s</div>'
             file_url = settings.MEDIA_URL + str(value)
             output.append(item % (_('Currently:'),
                                   '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
             output.append(item % (_('Change:'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
         else:
-            output.append(item % (_('Browse'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
+            item = '<div style="float:left;line-height:18px;padding-top:6px;text-align:right;">%s</div><div style="width:300px;">%s</div>'
+            output.append(item % ('', input + '<br/>Allowed type - .mp3, .wav, .ogg'))
 
         output.append(item % (file_select_box, ''))
         output.append(item % (channel_select_box, ''))
