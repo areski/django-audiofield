@@ -15,7 +15,7 @@ import os.path
 class AudioFile(Model):
     name = models.CharField(max_length=150, blank=False,
                             verbose_name="Audio Name",
-                            help_text='Audio label')
+                            help_text='Audio file label')
     
     audio_file = AudioField(upload_to='upload/audiofiles', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"))

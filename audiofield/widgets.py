@@ -74,7 +74,7 @@ class AdminAudioFileWidget(AdminFileWidget):
 
         output.append(item % (_('Convert To') + ':', file_select_box))
         output.append(item % (_('Channel') + ':', channel_select_box))
-        output.append(item % (_('Frequecy') + ':', freq_select_box))
+        output.append(item % (_('Frequency') + ':', freq_select_box))
 
         if value:
             output.append(item % (_('Delete') + ':', '<input type="checkbox" name="%s_delete"/>' % name)) # split colon to force "Delete" that is already translated
