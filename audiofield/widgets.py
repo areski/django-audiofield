@@ -68,9 +68,9 @@ class AdminAudioFileWidget(AdminFileWidget):
             output.append(item % (_('Currently:'),
                                   '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change:'), input + '<br/>Allowed format - mp3, wav and ogg'))
+            output.append(item % (_('Change:'), input + '<br/>' + _('Allowed format - mp3, wav and ogg')))
         else:
-            output.append(item % (_('Upload:'), input + '<br/>Allowed format - mp3 wav and ogg'))
+            output.append(item % (_('Upload:'), input + '<br/>' + _('Allowed format - mp3 wav and ogg')))
 
         output.append(item % (_('Convert To') + ':', file_select_box))
         output.append(item % (_('Channel') + ':', channel_select_box))
@@ -110,16 +110,21 @@ class CustomerAudioFileWidget(AdminFileWidget):
 
         output = []
 
+        label_style = 'float:left;line-height:18px;padding-top:6px;text-align:right;'
+        input_div_style = 'width:300px;margin-left:70px;'
+
+        item = '<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
+
         if value and type(value).__name__ != 'str':
-            item = '<div style="float:left;line-height:18px;padding-top:6px;text-align:right;">%s</div><div style="width:300px;margin-left:70px;">%s</div>'
             file_url = settings.MEDIA_URL + str(value)
             output.append(item % (_('Currently:'),
                                   '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change:'), input + '<br/>Allowed type - .mp3, .wav, .ogg'))
+            output.append(item % (_('Change:'), input + '<br/>'+_('Allowed format - mp3, wav and ogg')))
         else:
-            item = '<div style="float:left;line-height:18px;padding-top:6px;text-align:right;">%s</div><div style="width:300px;">%s</div>'
-            output.append(item % ('', input + '<br/>Allowed type - .mp3, .wav, .ogg'))
+            input_div_style = 'width:300px;'
+            item = '<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
+            output.append(item % ('', input + '<br/>' + _('Allowed format - mp3, wav and ogg')))
 
         output.append(item % (file_select_box, ''))
         output.append(item % (channel_select_box, ''))
