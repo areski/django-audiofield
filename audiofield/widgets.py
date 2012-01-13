@@ -7,25 +7,25 @@ import os.path
 
 
 CHANNEL_TYPE = (
-    ('0', ('Keep original')),
-    ('1', ('Mono')),
-    ('2', ('Stereo')),
+    ('0', _('Keep original')),
+    ('1', _('Mono')),
+    ('2', _('Stereo')),
 )
 
 FREQ_TYPE = (
-    ('0', ('Keep original')),
-    ('8000', ('8000 Hz')),
-    ('16000', ('16000 Hz')),
-    ('22050', ('22050 Hz')),
-    ('44100', ('44100 Hz')),
-    ('48000', ('48000 Hz')),
+    ('0', _('Keep original')),
+    ('8000', _('8000 Hz')),
+    ('16000', _('16000 Hz')),
+    ('22050', _('22050 Hz')),
+    ('44100', _('44100 Hz')),
+    ('48000', _('48000 Hz')),
 )
 
 CONVERT_TYPE = (
-    ('0', ('Keep original audio file')),
-    ('1', ('Convert to MP3')),
-    ('2', ('Convert to WAV')),
-    ('3', ('Convert to OGG')),
+    ('0', _('Keep original audio file')),
+    ('1', _('Convert to MP3')),
+    ('2', _('Convert to WAV')),
+    ('3', _('Convert to OGG')),
 )
 
 
@@ -62,15 +62,15 @@ class AdminAudioFileWidget(AdminFileWidget):
         item = '<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
         output = []
         output.append('<table style="border-style: none;">')
-
+        help_text = _('Allowed format - mp3 wav and ogg')
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
-            output.append(item % (_('Currently:'),
+            output.append(item % (_('Currently') + ':',
                                   '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change:'), input + '<br/>' + _('Allowed format - mp3, wav and ogg')))
+            output.append(item % (_('Change')+ ':', input + '<br/>%s' % help_text))
         else:
-            output.append(item % (_('Upload:'), input + '<br/>' + _('Allowed format - mp3 wav and ogg')))
+            output.append(item % (_('Upload')+ ':', input + '<br/>%s' %  help_text))
 
         output.append(item % (_('Convert To') + ':', file_select_box))
         output.append(item % (_('Channel') + ':', channel_select_box))
@@ -114,7 +114,7 @@ class CustomerAudioFileWidget(AdminFileWidget):
         input_div_style = 'width:300px;margin-left:70px;'
 
         item = '<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
-        help_text = '<span class="help-block">' + _('Allowed format - mp3, wav and ogg') + '</span>'
+        help_text = '<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
 
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)

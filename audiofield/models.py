@@ -1,11 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
-from django.core.cache import cache
-from django.db.models.signals import post_save
 from django.conf import settings
-from datetime import datetime, timedelta
+from datetime import datetime
 from common.intermediate_model_base_class import Model
 from audiofield.fields import AudioField
 import os.path
