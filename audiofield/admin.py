@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import *
 from audiofield.models import AudioFile
 from django.conf import settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 import os
 
 

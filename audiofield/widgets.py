@@ -1,6 +1,6 @@
 from django.contrib.admin.widgets import AdminFileWidget
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.conf import settings
 import os.path
@@ -33,10 +33,10 @@ def add_select_box(select_name, select_value):
     '''
     function to create Html select option
     '''
-    select_box = '<select name="%s">' % (select_name)
+    select_box = u'<select name="%s">' % (select_name)
     for i in select_value:
-        select_box += '<option value="'+i[0]+'">' + i[1] + '</option>'
-    select_box += '</select>'
+        select_box += u'<option value="%s">%s</option>' % (i[0], i[1])
+    select_box += u'</select>'
     return select_box
 
 
@@ -59,26 +59,26 @@ class AdminAudioFileWidget(AdminFileWidget):
         freq_select_box = add_select_box('freq_type', FREQ_TYPE)
         
         file_url = ''
-        item = '<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
+        item = u'<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
         output = []
-        output.append('<table style="border-style: none;">')
+        output.append(u'<table style="border-style: none;">')
         help_text = _('Allowed format - mp3 wav and ogg')
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
-            output.append(item % (_('Currently') + ':',
-                                  '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
+            output.append(item % (_('Currently:'),
+                                  u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change')+ ':', input + '<br/>%s' % help_text))
+            output.append(item % (_('Change:'), input + '<br/>%s' % help_text))
         else:
-            output.append(item % (_('Upload')+ ':', input + '<br/>%s' %  help_text))
+            output.append(item % (_('Upload:'), input + '<br/>%s' %  help_text))
 
-        output.append(item % (_('Convert To') + ':', file_select_box))
-        output.append(item % (_('Channel') + ':', channel_select_box))
-        output.append(item % (_('Frequency') + ':', freq_select_box))
+        output.append(item % (_('Convert To:'), file_select_box))
+        output.append(item % (_('Channel:'), channel_select_box))
+        output.append(item % (_('Frequency:'), freq_select_box))
 
         if value:
-            output.append(item % (_('Delete') + ':', '<input type="checkbox" name="%s_delete"/>' % name)) # split colon to force "Delete" that is already translated
-        output.append('</table>')
+            output.append(item % (_('Delete:'), '<input type="checkbox" name="%s_delete"/>' % name)) # split colon to force "Delete" that is already translated
+        output.append(u'</table>')
 
         return mark_safe(u''.join(output))
 
@@ -104,22 +104,22 @@ class CustomerAudioFileWidget(AdminFileWidget):
 
         file_url = ''
         
-        file_select_box = '<input type="hidden" name="convert_type" value="' + str(settings.CONVERT_TYPE_VALUE) + '"/>'
-        channel_select_box = '<input type="hidden" name="channel_type" value="' + str(settings.CHANNEL_TYPE_VALUE) + '"/>'
-        freq_select_box = '<input type="hidden" name="freq_type" value="' + str(settings.FREQ_TYPE_VALUE) + '"/>'
+        file_select_box = u'<input type="hidden" name="convert_type" value="%s"/>' % settings.CONVERT_TYPE_VALUE
+        channel_select_box = u'<input type="hidden" name="channel_type" value="%s"/>' % settings.CHANNEL_TYPE_VALUE
+        freq_select_box = u'<input type="hidden" name="freq_type" value="%s"/>' % settings.FREQ_TYPE_VALUE
 
         output = []
 
         label_style = 'float:left;line-height:18px;padding-top:6px;text-align:right;'
         input_div_style = 'width:300px;margin-left:70px;'
 
-        item = '<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
-        help_text = '<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
+        item = u'<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
+        help_text = u'<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
 
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
             output.append(item % (_('Currently:'),
-                                  '<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
+                                  u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
             output.append(item % (_('Change:'), input + help_text))
         else:
