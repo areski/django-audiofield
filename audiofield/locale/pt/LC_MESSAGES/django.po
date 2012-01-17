@@ -21,124 +21,125 @@ msgstr ""
 #: admin.py:25
 #, python-format
 msgid "Successfully deleted %d audio files."
-msgstr ""
+msgstr "Excluído com sucesso arquivos %d áudio."
 
 #: models.py:14
 msgid "Audio Name"
-msgstr ""
+msgstr "Nome de áudio"
 
 #: models.py:15
 msgid "Audio file label"
-msgstr ""
+msgstr "Label arquivo de áudio"
 
 #: models.py:19 models.py:27
 msgid "Audio file"
-msgstr ""
+msgstr "Arquivo de áudio"
 
 #: models.py:21
 msgid "Select User"
-msgstr ""
+msgstr "Selecione Usuário"
 
 #: models.py:28
 msgid "Audio files"
-msgstr ""
+msgstr "Arquivos de áudio"
 
 #: models.py:46
 msgid "Audio file player"
-msgstr ""
+msgstr "Reprodutor de arquivos de áudio"
 
 #: settings.py:173
 msgid "English"
-msgstr ""
+msgstr "Inglês"
 
 #: settings.py:175
 msgid "Spanish"
-msgstr ""
+msgstr "Espanhol"
 
 #: settings.py:176
 msgid "Portuguese"
-msgstr ""
+msgstr "Português"
 
 #: widgets.py:10 widgets.py:16
 msgid "Keep original"
-msgstr ""
+msgstr "Manter original"
 
 #: widgets.py:11
 msgid "Mono"
-msgstr ""
+msgstr "Mono"
 
 #: widgets.py:12
 msgid "Stereo"
-msgstr ""
+msgstr "Estéreo"
 
 #: widgets.py:17
 msgid "8000 Hz"
-msgstr ""
+msgstr "8000 Hz"
 
 #: widgets.py:18
 msgid "16000 Hz"
-msgstr ""
+msgstr "16000 Hz"
 
 #: widgets.py:19
 msgid "22050 Hz"
-msgstr ""
+msgstr "22.050 Hz"
 
 #: widgets.py:20
 msgid "44100 Hz"
-msgstr ""
+msgstr "44100 Hz"
 
 #: widgets.py:21
 msgid "48000 Hz"
-msgstr ""
+msgstr "48000 Hz"
 
 #: widgets.py:25
 msgid "Keep original audio file"
-msgstr ""
+msgstr "Manter arquivo de áudio original"
 
 #: widgets.py:26
 msgid "Convert to MP3"
-msgstr ""
+msgstr "Converter para MP3"
 
 #: widgets.py:27
 msgid "Convert to WAV"
-msgstr ""
+msgstr "Converter para WAV"
 
 #: widgets.py:28
 msgid "Convert to OGG"
-msgstr ""
+msgstr "Converter para OGG"
 
 #: widgets.py:65
 msgid "Allowed format - mp3 wav and ogg"
-msgstr ""
+msgstr "Formato permitido - mp3 wav e ogg"
 
 #: widgets.py:68 widgets.py:121
 msgid "Currently:"
-msgstr ""
+msgstr "Atualmente:"
 
 #: widgets.py:71 widgets.py:124
 msgid "Change:"
-msgstr ""
+msgstr "Mudança:"
 
 #: widgets.py:73
 msgid "Upload:"
-msgstr ""
+msgstr "Upload:"
 
 #: widgets.py:75
 msgid "Convert To:"
-msgstr ""
+msgstr "Para converter:"
 
 #: widgets.py:76
 msgid "Channel:"
-msgstr ""
+msgstr "Canal:"
 
 #: widgets.py:77
 msgid "Frequency:"
-msgstr ""
+msgstr "Frequência:"
 
 #: widgets.py:80
 msgid "Delete:"
-msgstr ""
+msgstr "Delete:"
 
 #: widgets.py:117
 msgid "Allowed format - mp3, wav and ogg"
-msgstr ""
+msgstr "Formato permitido - mp3, wav e ogg"
+
