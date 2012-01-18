@@ -165,6 +165,9 @@ class AudioField(FileField):
             
             result = commands.getoutput(conv)
             logger.debug("Sox command :> %s" % conv)
+            
+            #remove file after convertion
+            os.remove(filename_temp)
                 
 
         # 4) WAV TO OGG
