@@ -8,7 +8,7 @@ import os
 
 class AudioFileAdmin(admin.ModelAdmin):
     """Allows the administrator to view and modify uploaded audio files"""
-    list_display = ('id', 'name', 'audio_file_player', 'user')
+    list_display = ('id', 'name', 'audio_file_player', 'created_date', 'user')
     #list_display_links = ['id', 'name',]
     ordering = ('id', )
 
