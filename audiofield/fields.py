@@ -7,6 +7,7 @@ from django.db import models
 from middleware import threadlocals
 from uuid import uuid1
 from random import choice, seed
+import time
 seed()
 
 import os, shutil
@@ -80,9 +81,9 @@ class AudioField(FileField):
         convert_to = int(request.POST["convert_type"])
         ext = ext.split('.')[1]
         audio_type = CONVERT_TYPE_CHK[convert_to]
-        error_msg = ("Not allowed : File format conversion is not allowed for same audio type")
+        error_msg = ("Not allowed : File format conversion is not allowed for same audio type (except Wav)")
         if convert_to:
-            if ext == audio_type:
+            if ext == audio_type and ext != 'wav':
                 error_msg += ' %s format !!' % ext
                 logger.error(error_msg)
                 raise forms.ValidationError(error_msg)
@@ -112,6 +113,8 @@ class AudioField(FileField):
         splitted_filename = list(os.path.splitext(filename))[0] # converted filename without ext
 
         logger.debug("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
+        
+        filename_temp = filename[:-4] + '_temp' + '.wav'
         
         # 1) MP3 TO WAV
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
@@ -144,6 +147,25 @@ class AudioField(FileField):
             #conv = "lame -h %s %s.mp3" % (filename,  filename)
             conv = "sox %s  %s.mp3" % (filename, splitted_filename)
             result = commands.getoutput(conv)
+        
+        # 3) WAV TO WAV
+        if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
+            logger.debug("convert WAV to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
+
+            #prepare Sox parameters for Channels convertion
+            conv_channel = "-s -c %s" % str(channel_no) if channel_no > 0 else ''
+            
+            #prepare Sox parameters for Frequency convertion
+            conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
+            
+            conv = "sox %s %s %s %s.wav" % (filename_temp, conv_freq, conv_channel, splitted_filename)
+            
+            #create a temp copy of the file
+            shutil.copy2(filename, filename_temp)
+            
+            result = commands.getoutput(conv)
+            logger.debug("Sox command :> %s" % conv)
+                
 
         # 4) WAV TO OGG
         # not working 
