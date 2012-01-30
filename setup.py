@@ -3,7 +3,7 @@ import os
 import sys
 import re
 
-version='0.1.0'
+version='0.2.0'
 
 packages, data_files = [], []
 root_dir = os.path.dirname(__file__)
