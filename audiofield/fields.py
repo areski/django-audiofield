@@ -145,8 +145,9 @@ class AudioField(FileField):
             logger.debug('WAV to MP3')
             #conv = "lame -V2 %s %s.mp3" % (filename,  filename)
             #conv = "lame -h %s %s.mp3" % (filename,  filename)
-            conv = "sox %s  %s.mp3" % (filename, splitted_filename)
+            conv = "sox %s %s.mp3" % (filename, splitted_filename)
             result = commands.getoutput(conv)
+            logger.debug("Sox command :> %s" % conv)
         
         # 3) WAV TO WAV
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
@@ -163,7 +164,8 @@ class AudioField(FileField):
             #create a temp copy of the file
             shutil.copy2(filename, filename_temp)
             
-            result = commands.getoutput(conv)
+            subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE).communicate()[0]
+            
             logger.debug("Sox command :> %s" % conv)
             
             #remove file after convertion
