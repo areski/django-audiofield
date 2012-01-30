@@ -4,7 +4,7 @@ import commands
 import logging
 
 
-class AudioConvertTask(Task):
+class audio_convert_task(Task):
     """
     Convert audio files
     """
