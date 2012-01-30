@@ -1,2 +1,5 @@
 Django>=1.3.0
+celery==2.4.0
+django-celery==2.4.0
 django-uuidfield
+
