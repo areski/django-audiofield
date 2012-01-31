@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from django import forms
 from django.db import models
 from middleware import threadlocals
+from tasks import audio_convert_task
 from uuid import uuid1
 from random import choice, seed
 import time
@@ -127,8 +128,10 @@ class AudioField(FileField):
             conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
             
             conv = "sox %s %s %s %s.wav" % (filename, conv_freq, conv_channel, splitted_filename)
-            result = commands.getoutput(conv)
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
             logger.debug("Sox command :> %s" % conv)
+
+
 
         #TODO: CONVERT MP3 TO OGG
         # 2) MP3 TO OGG
@@ -138,7 +141,9 @@ class AudioField(FileField):
                                                                  splitted_filename)
             #conv = "sox  %s  %s.ogg" % (filename, filename)
             #conv = "ffmpeg -i %s  %s.ogg" % (filename, splitted_filename)
-            result = commands.getoutput(conv)
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            logger.debug("command :> %s" % conv)
+
 
         # 3) WAV TO MP3
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
@@ -146,7 +151,7 @@ class AudioField(FileField):
             #conv = "lame -V2 %s %s.mp3" % (filename,  filename)
             #conv = "lame -h %s %s.mp3" % (filename,  filename)
             conv = "sox %s %s.mp3" % (filename, splitted_filename)
-            result = commands.getoutput(conv)
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
             logger.debug("Sox command :> %s" % conv)
         
         # 3) WAV TO WAV
@@ -178,7 +183,8 @@ class AudioField(FileField):
             logger.debug('WAV to OGG')
             #conv = "sox %s %s.ogg" % (filename, splitted_filename)
             conv = "ffmpeg -i %s  -acodec libvorbis %s.ogg" % (filename, splitted_filename)
-            result = commands.getoutput(conv)
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            logger.debug("command :> %s" % conv)
             
         # 5) OGG TO MP3
         # not working 
@@ -186,14 +192,16 @@ class AudioField(FileField):
             logger.debug('OGG to MP3')
             #conv = "sox %s %s.mp3" % (filename, splitted_filename)
             conv = "ffmpeg -i %s -acodec libmp3lame %s.mp3" % (filename, splitted_filename)
-            result = commands.getoutput(conv)
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            logger.debug("command :> %s" % conv)
 
         # 6) OGG TO WAV
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug('OGG to WAV')
             #conv = "sox %s %s.wav" % (filename, splitted_filename)
             conv = "ffmpeg -i %s %s.wav" % (filename, splitted_filename)
-            result = commands.getoutput(conv)
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            logger.debug("command :> %s" % conv)
             
 
     def _rename_audio(self, instance=None, **kwargs):
