@@ -160,21 +160,31 @@ class AudioField(FileField):
 
             #prepare Sox parameters for Channels convertion
             conv_channel = "-s -c %s" % str(channel_no) if channel_no > 0 else ''
-            
+
             #prepare Sox parameters for Frequency convertion
             conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
-            
+
             conv = "sox %s %s %s %s.wav" % (filename_temp, conv_freq, conv_channel, splitted_filename)
-            
+            #cmd = 'sox /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785_temp.wav -r 8000 -s -c 1 /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785.wav'
+            #print "first file converted!"
+
             #create a temp copy of the file
             shutil.copy2(filename, filename_temp)
             
-            subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE).communicate()[0]
+            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            logger.debug("command :> %s" % conv)
+
+            #os.system('echo "%s" >> /tmp/track'% conv)
+            #os.system('%s &'% conv)
+            """
+            print("Sox command :> %s" % conv)
+            result = subprocess.check_call(conv.split(' '), shell=False)
+            result = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            result.communicate()
             
-            logger.debug("Sox command :> %s" % conv)
-            
-            #remove file after convertion
-            os.remove(filename_temp)
+            args = shlex.split(conv)
+            p = subprocess.Popen(args)
+            """
                 
 
         # 4) WAV TO OGG

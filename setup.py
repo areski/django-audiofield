@@ -2,8 +2,9 @@ from setuptools import setup
 import os
 import sys
 import re
+import audiofield
 
-version='0.2.0'
+version = audiofield.__version__
 
 packages, data_files = [], []
 root_dir = os.path.dirname(__file__)
