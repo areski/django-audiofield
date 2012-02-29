@@ -115,7 +115,7 @@ class AudioField(FileField):
 
         logger.debug("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
         
-        filename_temp = filename[:-4] + '_temp' + '.wav'
+        filename_temp = filename[:-4] + '_temp'
         
         # 1) MP3 TO WAV
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
@@ -131,8 +131,6 @@ class AudioField(FileField):
             result = audio_convert_task.delay(conv) #commands.getoutput(conv)
             logger.debug("Sox command :> %s" % conv)
 
-
-
         #TODO: CONVERT MP3 TO OGG
         # 2) MP3 TO OGG
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
@@ -143,7 +141,6 @@ class AudioField(FileField):
             #conv = "ffmpeg -i %s  %s.ogg" % (filename, splitted_filename)
             result = audio_convert_task.delay(conv) #commands.getoutput(conv)
             logger.debug("command :> %s" % conv)
-
 
         # 3) WAV TO MP3
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
@@ -157,6 +154,8 @@ class AudioField(FileField):
         # 3) WAV TO WAV
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug("convert WAV to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
+            
+            filename_temp = filename_temp + '.wav'
 
             #prepare Sox parameters for Channels convertion
             conv_channel = "-s -c %s" % str(channel_no) if channel_no > 0 else ''
@@ -172,20 +171,8 @@ class AudioField(FileField):
             shutil.copy2(filename, filename_temp)
             
             result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            logger.debug("result :> %s" % str(result))
             logger.debug("command :> %s" % conv)
-
-            #os.system('echo "%s" >> /tmp/track'% conv)
-            #os.system('%s &'% conv)
-            """
-            print("Sox command :> %s" % conv)
-            result = subprocess.check_call(conv.split(' '), shell=False)
-            result = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            result.communicate()
-            
-            args = shlex.split(conv)
-            p = subprocess.Popen(args)
-            """
-                
 
         # 4) WAV TO OGG
         # not working 
@@ -197,7 +184,7 @@ class AudioField(FileField):
             logger.debug("command :> %s" % conv)
             
         # 5) OGG TO MP3
-        # not working 
+        # not working
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
             logger.debug('OGG to MP3')
             #conv = "sox %s %s.mp3" % (filename, splitted_filename)
@@ -212,7 +199,6 @@ class AudioField(FileField):
             conv = "ffmpeg -i %s %s.wav" % (filename, splitted_filename)
             result = audio_convert_task.delay(conv) #commands.getoutput(conv)
             logger.debug("command :> %s" % conv)
-            
 
     def _rename_audio(self, instance=None, **kwargs):
         '''Rename uploaded audio file & calls methods to convert audio file format if
@@ -242,8 +228,11 @@ class AudioField(FileField):
                         #Delete original audio file
                         if os.path.exists(dst_fullpath):
                             #Check for no .. and no *
+                            #DISABLED Delete file
+                            """
                             if dst_fullpath.find('../../') == -1 and dst_fullpath.find('*') == -1:
                                 os.remove(dst_fullpath)
+                            """
                         ext = '.' + CONVERT_TYPE_CHK[convert_type]
                         dst = self.generate_filename(instance, '%s%s%s' % 
                                                         (self.filename_prefix, self.uuid, ext))
