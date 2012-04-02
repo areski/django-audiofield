@@ -1,5 +1,5 @@
-#VERSION = (0, 2, 0, "final", 1)
-VERSION = (0, 2, 0, "dev", 1)
+VERSION = (0, 3, 0, "final", 1)
+#VERSION = (0, 3, 0, "dev", 1)
 
 
 
