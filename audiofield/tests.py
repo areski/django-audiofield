@@ -21,12 +21,14 @@ from audiofield.forms import CustomerAudioFileForm
 class AudiofieldAdminInterfaceTestCase(BaseAuthenticatedClient):
     """Test cases for Audiofield Admin Interface."""
 
-    def test_admin_audiofield(self):
-        """Test Function to check Audiofield Admin pages"""
-        response = self.client.get('/admin/audiofield/')
+    def test_admin_audiofile_list(self):
+        """Test Function to check admin audio file list"""
+        response = self.client.get('/admin/audiofield/audiofile/')
         self.failUnlessEqual(response.status_code, 200)
 
-        response = self.client.get('/admin/audiofield/audiofile/')
+    def test_admin_audiofile_add(self):
+        """Test Function to check admin audio file add"""
+        response = self.client.get('/admin/audiofield/audiofile/add/')
         self.failUnlessEqual(response.status_code, 200)
 
 
