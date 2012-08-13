@@ -1,1 +1,2 @@
 django-uuidfield
+git+git://github.com/Star2Billing/switch2bill-common.git

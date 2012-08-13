@@ -4,7 +4,7 @@ TODO
 
 - integrate with django-storage (http://django-storages.readthedocs.org/)
 
-- support more convertion
+- support more conversion
 
 - use gstreamer 
 
