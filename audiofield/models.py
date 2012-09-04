@@ -36,6 +36,9 @@ class AudioFile(Model):
     updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
+        permissions = (
+            ("view_audio", _('Can see Audio Files')),
+        )
         db_table = u'audio_file'
         verbose_name = _("Audio file")
         verbose_name_plural = _("Audio files")
