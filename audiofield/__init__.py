@@ -2,7 +2,6 @@ VERSION = (0, 3, 0, "final", 1)
 #VERSION = (0, 3, 0, "dev", 1)
 
 
-
 def get_version():
     if VERSION[3] == "final":
         return "%s.%s.%s" % (VERSION[0], VERSION[1], VERSION[2])
@@ -15,4 +14,3 @@ def get_version():
 
 
 __version__ = get_version()
-

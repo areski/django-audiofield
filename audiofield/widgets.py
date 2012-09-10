@@ -59,18 +59,18 @@ class AdminAudioFileWidget(AdminFileWidget):
         - audio player to play uploaded file
         - file browser
         - audio type conversion
-        - If conversion is mp3 to wav, you can add channel type & frequency 
+        - If conversion is mp3 to wav, you can add channel type & frequency
         - a delete checkbox
     '''
     input_type = 'file'
-    
+
     def render(self, name, value, attrs=None):
         input = super(forms.widgets.FileInput, self).render(name, value, attrs)
-        
+
         file_select_box = add_select_box('convert_type', CONVERT_TYPE)
         channel_select_box = add_select_box('channel_type', CHANNEL_TYPE)
         freq_select_box = add_select_box('freq_type', FREQ_TYPE)
-        
+
         file_url = ''
         item = u'<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
         output = []
@@ -83,14 +83,15 @@ class AdminAudioFileWidget(AdminFileWidget):
                                   % (file_url, os.path.basename(value.name))))
             output.append(item % (_('Change:'), input + '<br/>%s' % help_text))
         else:
-            output.append(item % (_('Upload:'), input + '<br/>%s' %  help_text))
+            output.append(item % (_('Upload:'), input + '<br/>%s' % help_text))
 
         output.append(item % (_('Convert To:'), file_select_box))
         output.append(item % (_('Channel:'), channel_select_box))
         output.append(item % (_('Frequency:'), freq_select_box))
 
         if value:
-            output.append(item % (_('Delete:'), '<input type="checkbox" name="%s_delete"/>' % name)) # split colon to force "Delete" that is already translated
+            # split colon to force "Delete" that is already translated
+            output.append(item % (_('Delete:'), '<input type="checkbox" name="%s_delete"/>' % name))
         output.append(u'</table>')
 
         return mark_safe(u''.join(output))
@@ -101,7 +102,7 @@ class AdminAudioFileWidget(AdminFileWidget):
         else:
             return '__deleted__'
 
-        
+
 class CustomerAudioFileWidget(AdminFileWidget):
     '''
     A CustomerAudioFileWidget that shows
@@ -112,11 +113,12 @@ class CustomerAudioFileWidget(AdminFileWidget):
             - If conversion is mp3 to wav, you can add channel type & frequency
     '''
     input_type = 'file'
+
     def render(self, name, value, attrs=None):
         input = super(forms.widgets.FileInput, self).render(name, value, attrs)
 
         file_url = ''
-        
+
         file_select_box = u'<input type="hidden" name="convert_type" value="%s"/>' % settings.CONVERT_TYPE_VALUE
         channel_select_box = u'<input type="hidden" name="channel_type" value="%s"/>' % settings.CHANNEL_TYPE_VALUE
         freq_select_box = u'<input type="hidden" name="freq_type" value="%s"/>' % settings.FREQ_TYPE_VALUE
@@ -143,7 +145,6 @@ class CustomerAudioFileWidget(AdminFileWidget):
         output.append(item % (file_select_box, ''))
         output.append(item % (channel_select_box, ''))
         output.append(item % (freq_select_box, ''))
-
 
         return mark_safe(u''.join(output))
 

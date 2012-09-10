@@ -27,4 +27,3 @@ class ThreadLocals(object):
     """
     def process_request(self, request):
         _thread_locals.request = request
-

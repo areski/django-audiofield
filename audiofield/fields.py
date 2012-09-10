@@ -16,16 +16,13 @@ from django.db.models import signals
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django import forms
-from django.db import models
 from middleware import threadlocals
 from tasks import audio_convert_task
-from uuid import uuid1
 from random import choice, seed
-import time
 seed()
 
-import os, shutil
-import commands
+import os
+import shutil
 import logging
 
 logger = logging.getLogger('audiofield_log')
@@ -91,7 +88,7 @@ class AudioField(FileField):
             error_msg = ("Not allowed filetype!")
             logger.error(error_msg)
             raise forms.ValidationError(error_msg)
-        
+
         convert_to = int(request.POST["convert_type"])
         ext = ext.split('.')[1]
         audio_type = CONVERT_TYPE_CHK[convert_to]
@@ -103,7 +100,7 @@ class AudioField(FileField):
                 raise forms.ValidationError(error_msg)
             else:
                 pass
-        
+
         return data
 
     def _get_converted_filename(self, filename):
@@ -119,29 +116,29 @@ class AudioField(FileField):
 
     def _convert_audio(self, filename, instance=None, ext=None):
         '''Convert uploaded audio file to selected format'''
-        
+
         request = threadlocals.get_current_request()
         convert_type = int(request.POST["convert_type"])
         channel_no = int(request.POST["channel_type"])
         freq_value = int(request.POST["freq_type"])
-        splitted_filename = list(os.path.splitext(filename))[0] # converted filename without ext
+        splitted_filename = list(os.path.splitext(filename))[0]  # converted filename without ext
 
         logger.debug("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
-        
+
         filename_temp = filename[:-4] + '_temp'
-        
+
         # 1) MP3 TO WAV
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug("convert MP3 to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
 
             #prepare Sox parameters for Channels convertion
             conv_channel = "-s -c %s" % str(channel_no) if channel_no > 0 else ''
-            
+
             #prepare Sox parameters for Frequency convertion
             conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
-            
+
             conv = "sox %s %s %s %s.wav" % (filename, conv_freq, conv_channel, splitted_filename)
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("Sox command :> %s" % conv)
 
         #TODO: CONVERT MP3 TO OGG
@@ -152,7 +149,7 @@ class AudioField(FileField):
                                                                  splitted_filename)
             #conv = "sox  %s  %s.ogg" % (filename, filename)
             #conv = "ffmpeg -i %s  %s.ogg" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("command :> %s" % conv)
 
         # 3) WAV TO MP3
@@ -161,13 +158,13 @@ class AudioField(FileField):
             #conv = "lame -V2 %s %s.mp3" % (filename,  filename)
             #conv = "lame -h %s %s.mp3" % (filename,  filename)
             conv = "sox %s %s.mp3" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("Sox command :> %s" % conv)
-        
+
         # 3) WAV TO WAV
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug("convert WAV to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
-            
+
             filename_temp = filename_temp + '.wav'
 
             #prepare Sox parameters for Channels convertion
@@ -182,27 +179,27 @@ class AudioField(FileField):
 
             #create a temp copy of the file
             shutil.copy2(filename, filename_temp)
-            
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("result :> %s" % str(result))
             logger.debug("command :> %s" % conv)
 
         # 4) WAV TO OGG
-        # not working 
+        # not working
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
             logger.debug('WAV to OGG')
             #conv = "sox %s %s.ogg" % (filename, splitted_filename)
             conv = "ffmpeg -i %s  -acodec libvorbis %s.ogg" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("command :> %s" % conv)
-            
+
         # 5) OGG TO MP3
         # not working
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
             logger.debug('OGG to MP3')
             #conv = "sox %s %s.mp3" % (filename, splitted_filename)
             conv = "ffmpeg -i %s -acodec libmp3lame %s.mp3" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("command :> %s" % conv)
 
         # 6) OGG TO WAV
@@ -210,7 +207,7 @@ class AudioField(FileField):
             logger.debug('OGG to WAV')
             #conv = "sox %s %s.wav" % (filename, splitted_filename)
             conv = "ffmpeg -i %s %s.wav" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv) #commands.getoutput(conv)
+            result = audio_convert_task.delay(conv)  # commands.getoutput(conv)
             logger.debug("command :> %s" % conv)
 
     def _rename_audio(self, instance=None, **kwargs):
@@ -218,24 +215,23 @@ class AudioField(FileField):
         convert_to is selected'''
         if getattr(instance, self.name):
             filename = getattr(instance, self.name).path
-            
+
             #Get the extension and limit to 3 chars
             ext = os.path.splitext(filename)[1].lower()[:4]
             #Get new file name and make sure it's unique
             dst = self.generate_filename(instance, '%s%s%s' % (self.filename_prefix, self.uuid, ext))
             dst_fullpath = os.path.join(settings.MEDIA_ROOT, dst)
-            
+
             # Same file should not exits
             if not os.path.isfile(dst_fullpath):
 
                 if os.path.abspath(filename) != os.path.abspath(dst_fullpath):
                     os.rename(filename, dst_fullpath)
                     self._convert_audio(dst_fullpath, instance, ext[1:4])
-                    
+
                     request = threadlocals.get_current_request()
-                    
-                    convert_type =  int(request.POST["convert_type"])
-                    
+                    convert_type = int(request.POST["convert_type"])
+
                     # 0 => Keep original
                     if convert_type > 0:
                         #Delete original audio file
@@ -247,7 +243,7 @@ class AudioField(FileField):
                                 os.remove(dst_fullpath)
                             """
                         ext = '.' + CONVERT_TYPE_CHK[convert_type]
-                        dst = self.generate_filename(instance, '%s%s%s' % 
+                        dst = self.generate_filename(instance, '%s%s%s' %
                                                         (self.filename_prefix, self.uuid, ext))
                     setattr(instance, self.attname, dst)
                     instance.save()
@@ -270,7 +266,7 @@ class AudioField(FileField):
         from audiofield.forms import AudioFormField
         kwargs['widget'] = AdminAudioFileWidget
         kwargs['form_class'] = AudioFormField
-        
+
         return super(AudioField, self).formfield(**kwargs)
 
     def save_form_data(self, instance, data):

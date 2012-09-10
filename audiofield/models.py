@@ -15,7 +15,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from datetime import datetime
 from common.intermediate_model_base_class import Model
 from audiofield.fields import AudioField
 import os.path
@@ -26,7 +25,7 @@ class AudioFile(Model):
     name = models.CharField(max_length=150, blank=False,
                             verbose_name=_("Audio Name"),
                             help_text=_('Audio file label'))
-    
+
     audio_file = AudioField(upload_to='upload/audiofiles', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
                             verbose_name=_("Audio file"))
@@ -44,11 +43,11 @@ class AudioFile(Model):
         verbose_name_plural = _("Audio files")
 
     def __unicode__(self):
-        return '[%s] %s' %(self.id, self.name)
+        return '[%s] %s' % (self.id, self.name)
 
     def save(self):
         #print "Before save"
-        super(AudioFile, self).save() # Call the "real" save() method
+        super(AudioFile, self).save()  # Call the "real" save() method
         #print "After save"
 
     def audio_file_player(self):
@@ -60,5 +59,3 @@ class AudioFile(Model):
             return player_string
     audio_file_player.allow_tags = True
     audio_file_player.short_description = _('Audio file player')
-
-
