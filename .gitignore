@@ -10,3 +10,4 @@ docs/build/*
 build/
 dist/
 *.egg*
+*sublime*
