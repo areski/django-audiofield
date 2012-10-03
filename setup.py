@@ -11,6 +11,7 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 from setuptools import setup
+from setuptools import find_packages
 import os
 import codecs
 import sys
@@ -92,8 +93,8 @@ setup(
     include_package_data=True,
     download_url='https://github.com/Star2Billing/django-audiofield/tarball/master',
     zip_safe=False,
-    package_dir={'audiofield': 'audiofield'},
-    packages=packages,
+    #package_dir={'audiofield': 'audiofield'},
+    packages=find_packages(),
     package_data={'audiofield': data_files},
     install_requires=parse_requirements('audiofield/requirements.txt'),
     dependency_links=parse_dependency_links('audiofield/requirements.txt',
