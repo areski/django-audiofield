@@ -163,16 +163,16 @@ Documentation is available on 'Read the Docs':
 http://django-audiofield.readthedocs.org
 
 
+Credit
+======
+
+Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit
+http://www.star2billing.com  or email us at info@star2billing.com
+
+
 License
 =======
 
 Copyright (c) 2011-2012 Star2Billing S.L. <info@star2billing.com>
 
 django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
-
-
-Credit
-======
-
-Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit
-http://www.star2billing.com  or email us at info@star2billing.com
