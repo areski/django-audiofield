@@ -184,7 +184,7 @@ setup(
     zip_safe=False,
     #package_dir={'audiofield': 'audiofield'},
     #packages=find_packages(),
-    py_modules=['audiofield'],
+    packages=['audiofield'],
     package_data=find_package_data(),
     #package_data={'audiofield': data_files},
     install_requires=parse_requirements('audiofield/requirements.txt'),
