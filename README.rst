@@ -2,8 +2,17 @@
 django-audiofield
 =================
 
+Django-audiofield is a Django application which allows audio file upload and conversion to mp3, wav and ogg format.
+It also makes it easy to play the audio files into your django application, for this we integrated a HTML5 and Flash audio player 'SoundManager2'
+
+The goal of this project is to quickly manage audio files into your django project and make it easy for admins and users to listen to them.
+
 
 .. image:: https://github.com/Star2Billing/django-audiofield/raw/master/docs/source/_static/django-admin-audiofield.png
+
+.. image:: https://github.com/Star2Billing/django-audiofield/raw/master/docs/source/_static/django-admin-audiofield-upload.png
+
+More information about Soundmanager2 : http://www.schillmania.com/projects/soundmanager2/
 
 
 Installation
@@ -18,12 +27,12 @@ Dependencies
 ------------
 
 Install dependencies on Debian::
-    
+
     apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 ffmpeg
 
 
 Install dependencies on Redhat/CentOS::
-    
+
     yum -y install python-setuptools libsox-fmt-mp3 libsox-fmt-all mpg321 ffmpeg
 
 
@@ -36,7 +45,7 @@ in your settings.py file::
     #MEDIA_ROOT = ''
 
     #MEDIA_URL = ''
-    
+
     In MIDDLEWARE_CLASSES add 'audiofield.middleware.threadlocals.ThreadLocals'
 
     In INSTALLED_APPS add 'audiofield'
@@ -103,12 +112,12 @@ Add the following lines in your admin.py::
         return actions
 
 
-If you are not using the installation script, please copy following template 
+If you are not using the installation script, please copy following template
 file to your template directory::
 
     cp audiofield/templates/common_audiofield.html /path/to/your/templates/directory/
 
-    
+
 Add the following in your template files (like admin/change_form.html, admin/change_list.html etc.
 in which you are using audio field type)::
 
@@ -165,7 +174,5 @@ django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
 Credit
 ======
 
-Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit 
+Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit
 http://www.star2billing.com  or email us at info@star2billing.com
-
-

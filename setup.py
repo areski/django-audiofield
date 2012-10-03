@@ -12,11 +12,18 @@
 #
 from setuptools import setup
 import os
+import codecs
 import sys
 import re
 import audiofield
 
+
 version = audiofield.__version__
+
+
+def read(*parts):
+    return codecs.open(os.path.join(os.path.dirname(__file__), *parts)).read()
+
 
 packages, data_files = [], []
 root_dir = os.path.dirname(__file__)
@@ -26,7 +33,8 @@ if root_dir:
 for dirpath, dirnames, filenames in os.walk('audiofield'):
     # Ignore dirnames that start with '.'
     for i, dirname in enumerate(dirnames):
-        if dirname.startswith('.'): del dirnames[i]
+        if dirname.startswith('.'):
+            del dirnames[i]
     if '__init__.py' in filenames:
         pkg = dirpath.replace(os.path.sep, '.')
         if os.path.altsep:
@@ -36,6 +44,7 @@ for dirpath, dirnames, filenames in os.walk('audiofield'):
         prefix = dirpath[12:]
         for f in filenames:
             data_files.append(os.path.join(prefix, f))
+
 
 def parse_requirements(file_name):
     requirements = []
@@ -68,27 +77,27 @@ def parse_dependency_links(file_name, install_flag=False):
     return dependency_links
 
 
-install_flag=False
+install_flag = False
 if sys.argv[1] == "install":
     install_flag = True
-
 
 setup(
     name='django-audiofield',
     version=version,
-    description='',
+    description='Django application which allows audio file upload and conversion to mp3, wav and ogg format',
+    long_description=read('README.rst'),
     author='Belaid Arezqui',
     author_email='areski@gmail.com',
     url='http://github.com/Star2Billing/django-audiofield',
     include_package_data=True,
     download_url='https://github.com/Star2Billing/django-audiofield/tarball/master',
-    zip_safe = False,
+    zip_safe=False,
     package_dir={'audiofield': 'audiofield'},
     packages=packages,
     package_data={'audiofield': data_files},
-    install_requires = parse_requirements('audiofield/requirements.txt'),
-    dependency_links = parse_dependency_links('audiofield/requirements.txt',
-                                              install_flag),
+    install_requires=parse_requirements('audiofield/requirements.txt'),
+    dependency_links=parse_dependency_links('audiofield/requirements.txt',
+                                            install_flag),
     license='MIT License',
     classifiers=[
         'Development Status :: 4 - Beta',

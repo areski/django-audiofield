@@ -5,7 +5,7 @@
 
 .. _django-audiofield-synopsis:
 
-Django-audiofield is an open source project written in Python, using the ``Django`` Framework.
+Django-audiofield is an application written in Python, using the ``Django`` Framework.
 
 The license is MIT.
 
@@ -17,7 +17,7 @@ Overview
 ========
 
 Django-audiofield is a Django application which allows audio file upload and conversion to mp3, wav and ogg format.
-It also makes it easy to play the audio files into your django application, for this we integrated a HTML5 and Flash audio player 'SoundManager2' 
+It also makes it easy to play the audio files into your django application, for this we integrated a HTML5 and Flash audio player 'SoundManager2'
 
 The goal of this project is to quickly manage audio files into your django project and make it easy for admins and users to listen to them.
 
@@ -42,12 +42,12 @@ Add the following lines in your models.py file::
     from django.conf import settings
     from audiofield.fields import AudioField
     import os.path
-    
+
     # Add the audio field to your model
     audio_file = AudioField(upload_to='your/upload/dir', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
                             help_text=("Allowed type - .mp3, .wav, .ogg"))
-    
+
     # Add this method to your model
     def audio_file_player(self):
         """audio player tag for admin"""
@@ -86,12 +86,12 @@ Add the following lines in your admin.py::
 
 
 If you are not using the installation script, please copy following template file to your template directory::
-    
+
     cp audiofield/templates/common_audiofield.html /path/to/your/templates/directory/
 
-    
+
 Add the following in your template files (like admin/change_form.html, admin/change_list.html, etc... in which you are using audio field type)::
-    
+
     {% block extrahead %}
     {{ block.super }}
         {% include "common_audiofield.html" %}
@@ -99,7 +99,7 @@ Add the following in your template files (like admin/change_form.html, admin/cha
 
 
 Then perform following commands to create the table and collect the static files::
-    
+
     ./manage.py syncdb
 
 and then::
@@ -110,7 +110,7 @@ and then::
 Create audiofield.log file::
 
     touch /var/log/audio-field.log
-    
+
 
 
 .. _documentation:
@@ -153,7 +153,7 @@ django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
 Credit
 ======
 
-Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit 
+Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit
 http://www.star2billing.com  or email us at info@star2billing.com
 
 

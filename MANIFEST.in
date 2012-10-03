@@ -1,9 +1,6 @@
 global-exclude *.pyc
 
 include README.rst
-include COPYING
-
+include MIT-LICENSE.txt
 
 recursive-include audiofield *
-
-

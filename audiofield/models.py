@@ -20,7 +20,9 @@ from audiofield.fields import AudioField
 import os.path
 
 
-# This Model describe the Audio used on the platform, this allow to upload audio file and configure alternate Text2Speech System
+# This Model describe the Audio used on the platform,
+# this allow to upload audio file and configure
+# alternate Text2Speech System
 class AudioFile(Model):
     name = models.CharField(max_length=150, blank=False,
                             verbose_name=_("Audio Name"),
