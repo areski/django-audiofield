@@ -159,14 +159,14 @@ Bug tracker: https://github.com/Star2Billing/django-audiofield/issues
 Documentation
 =============
 
-Extensive documentation is available on 'Read the Docs':
+Documentation is available on 'Read the Docs':
 http://django-audiofield.readthedocs.org
 
 
 License
 =======
 
-Copyright (c) 2011 Star2Billing S.L. <info@star2billing.com>
+Copyright (c) 2011-2012 Star2Billing S.L. <info@star2billing.com>
 
 django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
 
