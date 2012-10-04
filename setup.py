@@ -49,7 +49,7 @@ setup(
     install_requires=parse_requirements('audiofield/requirements.txt'),
     dependency_links=parse_dependency_links('audiofield/requirements.txt'),
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
