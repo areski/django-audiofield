@@ -30,14 +30,6 @@ def parse_dependency_links(file_name):
     for line in open(file_name, 'r').read().split('\n'):
         if re.match(r'\s*-e\s+', line):
             dependency_links.append(re.sub(r'\s*-e\s+', '', line))
-        if re.match(r'(\s*git)|(\s*hg)', line):
-            line_arr = line.split('/')
-            line_arr_length = len(line.split('/'))
-            pck_name = line_arr[line_arr_length - 1].split('.git')
-            if len(pck_name) == 2:
-                os.system('pip install -f %s %s' % (pck_name[0], line))
-            if len(pck_name) == 1:
-                os.system('pip install -f %s %s' % (pck_name, line))
     return dependency_links
 
 
