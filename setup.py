@@ -2,7 +2,6 @@ from setuptools import setup, find_packages
 import audiofield
 import os
 import re
-import sys
 
 
 def read(fname):
@@ -28,8 +27,9 @@ def parse_requirements(file_name):
 def parse_dependency_links(file_name):
     dependency_links = []
     for line in open(file_name, 'r').read().split('\n'):
-        if re.match(r'\s*-e\s+', line):
-            dependency_links.append(re.sub(r'\s*-e\s+', '', line))
+        if re.match(r'\s*-[ef]\s+', line):
+            dependency_links.append(re.sub(r'\s*-[ef]\s+', '', line))
+
     return dependency_links
 
 
