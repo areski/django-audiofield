@@ -140,7 +140,6 @@ Create audiofield.log file::
     touch /var/log/audio-field.log
 
 
-
 Contributing
 ============
 

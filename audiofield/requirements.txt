@@ -1,2 +1,3 @@
 django-uuidfield
 switch2bill-common
+celery==3.0.11
