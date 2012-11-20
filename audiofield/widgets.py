@@ -131,13 +131,21 @@ class CustomerAudioFileWidget(AdminFileWidget):
         item = u'<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
         help_text = u'<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
 
+        form_var = 0
         if value and type(value).__name__ != 'str':
-            file_url = settings.MEDIA_URL + str(value)
-            output.append(item % (_('Currently:'),
-                                  u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
-                                  % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change:'), input + help_text))
-        else:
+            dst_fullpath = os.path.join(settings.MEDIA_ROOT, str(value))
+            if os.path.isfile(dst_fullpath):
+                file_url = settings.MEDIA_URL + str(value)
+                output.append(item % (_('Currently:'),
+                                      u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
+                                      % (file_url, os.path.basename(value.name))))
+                output.append(item % (_('Change:'), input + help_text))
+                form_var = 1 # no error
+            else:
+                form_var = 0 # form error
+
+        # default
+        if form_var == 0:
             input_div_style = 'width:300px;'
             item = '<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
             output.append(item % ('', input + help_text))
