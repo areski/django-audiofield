@@ -12,9 +12,8 @@
 #
 
 from celery.task import Task
-import commands
-#import subprocess
-#import shlex
+import subprocess
+import shlex
 
 
 class audio_convert_task(Task):
@@ -26,13 +25,10 @@ class audio_convert_task(Task):
 
         logger = self.get_logger(**kwargs)
 
-        #Option 1 : command
-        response = commands.getoutput(conv)
+        #Option 1 : Popen
+        response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-        #Option 2 : Popen
-        #response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        #Option 3 : Popen & Shlex
+        #Option 2 : Popen & Shlex
         #args = shlex.split(conv)
         #p = subprocess.Popen(args)
 
