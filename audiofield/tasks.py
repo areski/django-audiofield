@@ -13,7 +13,7 @@
 
 from celery.task import Task
 import subprocess
-import shlex
+#import shlex
 
 
 class audio_convert_task(Task):
@@ -27,6 +27,9 @@ class audio_convert_task(Task):
 
         #Option 1 : Popen
         response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        (filetype, error) = response.communicate()
+        if error:
+            logger.info('Error conversion : %s ' % error)
 
         #Option 2 : Popen & Shlex
         #args = shlex.split(conv)
