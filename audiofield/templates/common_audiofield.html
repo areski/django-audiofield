@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}audiofield/page-player/css/page-player.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}audiofield/page-player/css/page-player.css" />
 <style type="text/css">
   ul.playlist li a {
     color: #333333;
@@ -9,8 +9,8 @@
   }
 </style>
 <!-- soundManager.useFlashBlock: related CSS -->
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}audiofield/flashblock/flashblock.css" />
-<script type="text/javascript" src="{{STATIC_URL}}audiofield/script/soundmanager2.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}audiofield/flashblock/flashblock.css" />
+<script type="text/javascript" src="{{ STATIC_URL }}audiofield/script/soundmanager2.js"></script>
 
 <script>
 /* --------
@@ -25,7 +25,7 @@ soundManager.preferFlash = true; // for visualization effects
 soundManager.useHighPerformance = true; // keep flash on screen, boost performance
 soundManager.wmode = 'transparent'; // transparent SWF, if possible
 soundManager.useFastPolling = true; // increased JS callback frequency
-soundManager.url = {{STATIC_URL}}+'audiofield/swf/';
+soundManager.url = {{ STATIC_URL }}+'audiofield/swf/';
 soundManager.debugFlash = false;
 soundManager.debugMode = true;
 // Added
@@ -45,7 +45,7 @@ var PP_CONFIG = {
 }
 </script>
 
-<script type="text/javascript" src="{{STATIC_URL}}audiofield/page-player/script/page-player.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}audiofield/page-player/script/page-player.js"></script>
 <script type="text/javascript">
 
 // demo only..

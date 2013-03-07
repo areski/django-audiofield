@@ -15,6 +15,7 @@ from django.db.models.fields.files import FileField
 from django.db.models import signals
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from django.utils.translation import ugettext_lazy as _
 from django import forms
 from middleware import threadlocals
 from tasks import audio_convert_task
@@ -85,14 +86,14 @@ class AudioField(FileField):
         ext = os.path.splitext(filename)[1]
         ext = ext.lower()
         if ext not in self.ext_whitelist:
-            error_msg = ("Not allowed filetype!")
+            error_msg = _("not allowed filetype!")
             logger.error(error_msg)
             raise forms.ValidationError(error_msg)
 
         convert_to = int(request.POST["convert_type"])
         ext = ext.split('.')[1]
         audio_type = CONVERT_TYPE_CHK[convert_to]
-        error_msg = ("Not allowed : File format conversion is not allowed for same audio type (except Wav)")
+        error_msg = _("not allowed : file format conversion is not allowed for same audio type (except Wav)")
         if convert_to:
             if ext == audio_type and ext != 'wav':
                 error_msg += ' %s format !!' % ext
@@ -247,7 +248,7 @@ class AudioField(FileField):
                     setattr(instance, self.attname, dst)
                     instance.save()
             else:
-                error_msg = ("File already exists!")
+                error_msg = ("file already exists!")
                 logger.error(error_msg)
 
     def _set_audio_converted(self, instance=None, **kwargs):

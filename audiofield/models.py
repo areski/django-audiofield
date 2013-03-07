@@ -25,24 +25,24 @@ import os.path
 # alternate Text2Speech System
 class AudioFile(Model):
     name = models.CharField(max_length=150, blank=False,
-                            verbose_name=_("Audio Name"),
-                            help_text=_('Audio file label'))
+                            verbose_name=_("audio name"),
+                            help_text=_('audio file label'))
 
     audio_file = AudioField(upload_to='upload/audiofiles', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
-                            verbose_name=_("Audio file"))
-    user = models.ForeignKey(User, verbose_name='User',
-                             help_text=_("Select User"))
+                            verbose_name=_("audio file"))
+    user = models.ForeignKey(User, verbose_name=_('user'),
+                             help_text=_("select user"))
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         permissions = (
-            ("view_audio", _('Can see Audio Files')),
+            ("view_audio", _('can see Audio Files')),
         )
         db_table = u'audio_file'
-        verbose_name = _("Audio file")
-        verbose_name_plural = _("Audio files")
+        verbose_name = _("audio file")
+        verbose_name_plural = _("audio files")
 
     def __unicode__(self):
         return '[%s] %s' % (self.id, self.name)
@@ -60,4 +60,4 @@ class AudioFile(Model):
             <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(file_url))
             return player_string
     audio_file_player.allow_tags = True
-    audio_file_player.short_description = _('Audio file player')
+    audio_file_player.short_description = _('audio file player')

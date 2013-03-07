@@ -20,13 +20,13 @@ import os.path
 
 
 CHANNEL_TYPE = (
-    ('0', _('Keep original')),
-    ('1', _('Mono')),
-    ('2', _('Stereo')),
+    ('0', _('keep original').capitalize()),
+    ('1', _('mono').capitalize()),
+    ('2', _('stereo').capitalize()),
 )
 
 FREQ_TYPE = (
-    ('0', _('Keep original')),
+    ('0', _('keep original').capitalize()),
     ('8000', _('8000 Hz')),
     ('16000', _('16000 Hz')),
     ('22050', _('22050 Hz')),
@@ -35,10 +35,10 @@ FREQ_TYPE = (
 )
 
 CONVERT_TYPE = (
-    ('0', _('Keep original audio file')),
-    ('1', _('Convert to MP3')),
-    ('2', _('Convert to WAV')),
-    ('3', _('Convert to OGG')),
+    ('0', _('keep original audio file').capitalize()),
+    ('1', _('convert to MP3').capitalize()),
+    ('2', _('convert to WAV').capitalize()),
+    ('3', _('convert to OGG').capitalize()),
 )
 
 
@@ -78,20 +78,20 @@ class AdminAudioFileWidget(AdminFileWidget):
         help_text = _('Allowed format - mp3 wav and ogg')
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
-            output.append(item % (_('Currently:'),
+            output.append(item % (_('currently:').title(),
                                   u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                   % (file_url, os.path.basename(value.name))))
-            output.append(item % (_('Change:'), input + '<br/>%s' % help_text))
+            output.append(item % (_('change:').title(), input + '<br/>%s' % help_text))
         else:
-            output.append(item % (_('Upload:'), input + '<br/>%s' % help_text))
+            output.append(item % (_('upload:').title(), input + '<br/>%s' % help_text))
 
-        output.append(item % (_('Convert To:'), file_select_box))
-        output.append(item % (_('Channel:'), channel_select_box))
-        output.append(item % (_('Frequency:'), freq_select_box))
+        output.append(item % (_('convert to:').title(), file_select_box))
+        output.append(item % (_('channel:').title(), channel_select_box))
+        output.append(item % (_('frequency:').title(), freq_select_box))
 
         if value:
             # split colon to force "Delete" that is already translated
-            output.append(item % (_('Delete:'), '<input type="checkbox" name="%s_delete"/>' % name))
+            output.append(item % (_('delete:').title(), '<input type="checkbox" name="%s_delete"/>' % name))
         output.append(u'</table>')
 
         return mark_safe(u''.join(output))
@@ -129,17 +129,17 @@ class CustomerAudioFileWidget(AdminFileWidget):
         input_div_style = 'width:300px;margin-left:70px;'
 
         item = u'<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
-        help_text = u'<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
+        help_text = u'<span class="help-block">%s</span>' % _('allowed format - mp3, wav and ogg').capitalize()
 
         form_var = 0
         if value and type(value).__name__ != 'str':
             dst_fullpath = os.path.join(settings.MEDIA_ROOT, str(value))
             if os.path.isfile(dst_fullpath):
                 file_url = settings.MEDIA_URL + str(value)
-                output.append(item % (_('Currently:'),
+                output.append(item % (_('currently:').title(),
                                       u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
                                       % (file_url, os.path.basename(value.name))))
-                output.append(item % (_('Change:'), input + help_text))
+                output.append(item % (_('change:').title(), input + help_text))
                 form_var = 1 # no error
             else:
                 form_var = 0 # form error
