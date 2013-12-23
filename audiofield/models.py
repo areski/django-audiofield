@@ -38,7 +38,7 @@ class AudioFile(Model):
 
     class Meta:
         permissions = (
-            ("view_audio", _('can see Audio Files')),
+            ("view_audiofile", _('can see Audio Files')),
         )
         db_table = u'audio_file'
         verbose_name = _("audio file")

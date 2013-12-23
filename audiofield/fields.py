@@ -126,10 +126,10 @@ class AudioField(FileField):
 
         logger.debug("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
 
-        filename_temp = filename[:-4] + '_temp'
+        filename_temp = filename[:-4] + '_temp'       
 
         # 1) MP3 TO WAV
-        if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
+        if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':            
             logger.debug("convert MP3 to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
 
             #prepare Sox parameters for Channels convertion
@@ -160,7 +160,7 @@ class AudioField(FileField):
             #conv = "lame -V2 %s %s.mp3" % (filename,  filename)
             #conv = "lame -h %s %s.mp3" % (filename,  filename)
             conv = "sox %s %s.mp3" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.delay(conv)            
             logger.debug("Sox command :> %s" % conv)
 
         # 3) WAV TO WAV
