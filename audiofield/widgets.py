@@ -137,12 +137,11 @@ class CustomerAudioFileWidget(AdminFileWidget):
             if os.path.isfile(dst_fullpath):
                 file_url = settings.MEDIA_URL + str(value)
                 output.append(item % (_('currently:').title(),
-                                      u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
-                                      % (file_url, os.path.basename(value.name))))
+                                      u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(value.name))))
                 output.append(item % (_('change:').title(), input + help_text))
-                form_var = 1 # no error
+                form_var = 1  # no error
             else:
-                form_var = 0 # form error
+                form_var = 0  # form error
 
         # default
         if form_var == 0:
