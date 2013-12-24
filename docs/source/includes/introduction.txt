@@ -1,5 +1,7 @@
-:Version: 0.1.0
-:Keywords: django, python
+:Version: |version|
+:Release: |release|
+:Date: |today|
+:Keywords: django, python, audiofield, audio, wav, mp3, sox
 
 --
 
