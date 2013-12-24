@@ -35,5 +35,5 @@ class audio_convert_task(Task):
         #args = shlex.split(conv)
         #p = subprocess.Popen(args)
 
-        logger.info('Received a request to converte audio file :> ' + str(conv))
+        logger.info('Received a request to convert audio file :> ' + str(conv))
         return response
