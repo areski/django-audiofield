@@ -205,7 +205,8 @@ class AudioField(FileField):
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug('OGG to WAV')
             #conv = "sox %s %s.wav" % (filename, splitted_filename)
-            conv = "ffmpeg -i %s %s.wav" % (filename, splitted_filename)
+            #conv = "ffmpeg -i %s %s.wav" % (filename, splitted_filename)
+            conv = "avconv -i %s -map_metadata 0:s:0 %s.wav" % (filename, splitted_filename)
             result = audio_convert_task.delay(conv)
             logger.debug("command :> %s" % conv)
 

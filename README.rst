@@ -22,6 +22,18 @@ Install Django-Audiofield::
 
     python setup.py install
 
+Install avconv::
+
+    git clone git://git.libav.org/libav.git
+
+    cd libav
+
+    sudo ./configure --disable-yasm
+
+    sudo make
+
+    sudo make install
+
 
 Dependencies
 ------------
