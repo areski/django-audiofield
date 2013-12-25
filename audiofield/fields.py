@@ -132,7 +132,7 @@ class AudioField(FileField):
             logger.debug("convert MP3 to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
 
             #prepare Sox parameters for Channels convertion
-            conv_channel = "-s -c %s" % str(channel_no) if channel_no > 0 else ''
+            conv_channel = "-e signed-integer -c %s" % str(channel_no) if channel_no > 0 else ''
 
             #prepare Sox parameters for Frequency convertion
             conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
