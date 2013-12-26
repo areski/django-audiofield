@@ -2,7 +2,14 @@ Changelog
 =========
 
 
-0.5.7 (2013-10-26)
+0.5.8 (2013-10-26)
+------------------
+
+* Fix convertions to OGG
+* Update install instructions
+
+
+0.5.7 (2013-10-25)
 ------------------
 
 * Fix convertion from MP3 to WAV and from OGG to WAV
