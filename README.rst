@@ -40,12 +40,12 @@ Dependencies
 
 Install dependencies on Debian::
 
-    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 ffmpeg
+    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg
 
 
 Install dependencies on Redhat/CentOS::
 
-    yum -y install python-setuptools libsox-fmt-mp3 libsox-fmt-all mpg321 ffmpeg
+    yum -y install python-setuptools libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg
 
 
 Settings

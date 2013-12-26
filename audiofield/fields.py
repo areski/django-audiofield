@@ -141,15 +141,10 @@ class AudioField(FileField):
             result = audio_convert_task.delay(conv)
             logger.debug("Sox command :> %s" % conv)
 
-        #TODO: CONVERT MP3 TO OGG
         # 2) MP3 TO OGG
-        # not working
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
             logger.debug('MP3 to OGG')
-            conv = "mpg321 %s -w raw && oggenc raw -o %s.ogg" % (filename,
-                                                                 splitted_filename)
-            #conv = "sox  %s  %s.ogg" % (filename, splitted_filename)
-            #conv = "ffmpeg -i %s  %s.ogg" % (filename, splitted_filename)
+            conv = "dir2ogg -q 4 %s" % (filename)
             result = audio_convert_task.delay(conv)
             logger.debug("command :> %s" % conv)
 
@@ -189,7 +184,6 @@ class AudioField(FileField):
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
             logger.debug('WAV to OGG')
             conv = "sox %s %s.ogg" % (filename, splitted_filename)
-            #conv = "ffmpeg -i %s  -acodec libvorbis %s.ogg" % (filename, splitted_filename)
             result = audio_convert_task.delay(conv)
             logger.debug("command :> %s" % conv)
 
@@ -197,7 +191,6 @@ class AudioField(FileField):
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
             logger.debug('OGG to MP3')
             conv = "sox %s %s.mp3" % (filename, splitted_filename)
-            #conv = "ffmpeg -i %s -acodec libmp3lame %s.mp3" % (filename, splitted_filename)
             result = audio_convert_task.delay(conv)
             logger.debug("command :> %s" % conv)
 
@@ -205,7 +198,6 @@ class AudioField(FileField):
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug('OGG to WAV')
             #conv = "sox %s %s.wav" % (filename, splitted_filename)
-            #conv = "ffmpeg -i %s %s.wav" % (filename, splitted_filename)
             conv = "avconv -i %s -map_metadata 0:s:0 %s.wav" % (filename, splitted_filename)
             result = audio_convert_task.delay(conv)
             logger.debug("command :> %s" % conv)
