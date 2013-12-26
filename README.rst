@@ -22,30 +22,27 @@ Install Django-Audiofield::
 
     python setup.py install
 
-Install avconv::
-
-    git clone git://git.libav.org/libav.git
-
-    cd libav
-
-    sudo ./configure --disable-yasm
-
-    sudo make
-
-    sudo make install
-
 
 Dependencies
 ------------
 
 Install dependencies on Debian::
 
-    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg
+    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg libav-tools
 
 
 Install dependencies on Redhat/CentOS::
 
     yum -y install python-setuptools libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg
+
+
+Install avconv on Redhat/CentOS::
+
+    git clone git://git.libav.org/libav.git
+    cd libav
+    sudo ./configure --disable-yasm
+    sudo make
+    sudo make install
 
 
 Settings
@@ -55,7 +52,6 @@ in your settings.py file::
 
     # Set Following variable
     #MEDIA_ROOT = ''
-
     #MEDIA_URL = ''
 
     In MIDDLEWARE_CLASSES add 'audiofield.middleware.threadlocals.ThreadLocals'
@@ -84,7 +80,6 @@ Add the following lines in your models.py file::
     audio_file = AudioField(upload_to='your/upload/dir', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
                             help_text=("Allowed type - .mp3, .wav, .ogg"))
-
 
     # Add this method to your model
     def audio_file_player(self):
@@ -143,7 +138,6 @@ in which you are using audio field type)::
 Then perform following commands to create the table and collect the static files::
 
     ./manage.py syncdb
-
     ./manage.py collectstatic
 
 
@@ -161,9 +155,6 @@ just suggestions are welcome!
 
 Source code: http://github.com/Star2Billing/django-audiofield
 
-
-If you don’t like Github and Git you’re welcome to send regular patches.
-
 Bug tracker: https://github.com/Star2Billing/django-audiofield/issues
 
 
@@ -178,12 +169,10 @@ Credit
 ======
 
 Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit
-http://www.star2billing.com  or email us at info@star2billing.com
+http://www.star2billing.com or email us at info@star2billing.com
 
 
 License
 =======
-
-Copyright (c) 2011-2012 Star2Billing S.L. <info@star2billing.com>
 
 django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
