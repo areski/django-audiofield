@@ -19,13 +19,12 @@ from django.utils.translation import ugettext_lazy as _
 from django import forms
 from middleware import threadlocals
 from tasks import audio_convert_task
-from random import choice, seed
-seed()
-
 import os
 import shutil
 import logging
+from random import choice, seed
 
+seed()
 logger = logging.getLogger('audiofield_log')
 
 CONVERT_TYPE_CHK = {0: 'org', 1: 'mp3', 2: 'wav', 3: 'ogg'}

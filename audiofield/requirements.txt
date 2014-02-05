@@ -1,4 +1,3 @@
 django-uuidfield
-django-lets-go
 celery
 django-celery

@@ -15,19 +15,20 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django_lets_go.intermediate_model_base_class import Model
+from audiofield.intermediate_model_base_class import Model
 from audiofield.fields import AudioField
 import os.path
 
 
-# This Model describe the Audio used on the platform,
-# this allow to upload audio file and configure
-# alternate Text2Speech System
 class AudioFile(Model):
+    """
+    This Model describe the Audio used on the platform,
+    this allow to upload audio file and configure
+    alternate Text2Speech System
+    """
     name = models.CharField(max_length=150, blank=False,
                             verbose_name=_("audio name"),
                             help_text=_('audio file label'))
-
     audio_file = AudioField(upload_to='upload/audiofiles', blank=True,
                             ext_whitelist=(".mp3", ".wav", ".ogg"),
                             verbose_name=_("audio file"))
@@ -48,9 +49,7 @@ class AudioFile(Model):
         return '[%s] %s' % (self.id, self.name)
 
     def save(self):
-        #print "Before save"
         super(AudioFile, self).save()  # Call the "real" save() method
-        #print "After save"
 
     def audio_file_player(self):
         """audio player tag for admin"""
@@ -59,5 +58,6 @@ class AudioFile(Model):
             player_string = '<ul class="playlist"><li style="width:250px;">\
             <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(file_url))
             return player_string
+
     audio_file_player.allow_tags = True
     audio_file_player.short_description = _('audio file player')
