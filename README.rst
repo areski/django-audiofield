@@ -59,12 +59,15 @@ in your settings.py file::
     In INSTALLED_APPS add 'audiofield'
 
     # Frontend widget values
-    CHANNEL_TYPE_VALUE = 0  # 0-Keep original, 1-Mono, 2-Stereo
+    # 0-Keep original, 1-Mono, 2-Stereo
+    CHANNEL_TYPE_VALUE = 0
 
-    FREQ_TYPE_VALUE = 8000  # 0-Keep original, 8000-8000Hz, 16000-16000Hz, 22050-22050Hz,
-                         # 44100-44100Hz, 48000-48000Hz, 96000-96000Hz
+    # 0-Keep original, 8000-8000Hz, 16000-16000Hz, 22050-22050Hz,
+    # 44100-44100Hz, 48000-48000Hz, 96000-96000Hz
+    FREQ_TYPE_VALUE = 8000
 
-    CONVERT_TYPE_VALUE = 0 # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
+    # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
+    CONVERT_TYPE_VALUE = 0
 
 
 Usage
@@ -89,12 +92,12 @@ Add the following lines in your models.py file::
             player_string = '<ul class="playlist"><li style="width:250px;">\
             <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(self.audio_file.name))
             return player_string
+
     audio_file_player.allow_tags = True
     audio_file_player.short_description = _('Audio file player')
 
 
 Add the following lines in your admin.py::
-
 
     from your_app.models import your_model_name
 
@@ -168,11 +171,10 @@ http://django-audiofield.readthedocs.org
 Credit
 ======
 
-Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit
-http://www.star2billing.com or email us at info@star2billing.com
+Django-audiofield is a Star2Billing-Sponsored Community Project, for more information visit http://www.star2billing.com or email us at info@star2billing.com
 
 
 License
 =======
 
-django-audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
+Django-Audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
