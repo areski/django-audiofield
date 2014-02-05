@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from common.intermediate_model_base_class import Model
+from django_lets_go.intermediate_model_base_class import Model
 from audiofield.fields import AudioField
 import os.path
 

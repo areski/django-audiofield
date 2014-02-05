@@ -1,4 +1,4 @@
 django-uuidfield
-switch2bill-common
+django-lets-go
 celery
 django-celery
