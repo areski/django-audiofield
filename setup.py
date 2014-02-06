@@ -46,8 +46,8 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     package_data={},
-    install_requires=parse_requirements('audiofield/requirements.txt'),
-    dependency_links=parse_dependency_links('audiofield/requirements.txt'),
+    install_requires=parse_requirements('requirements.txt'),
+    dependency_links=parse_dependency_links('requirements.txt'),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
