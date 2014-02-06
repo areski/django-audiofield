@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+0.6.0 (2014-02-07)
+------------------
+
+* Pin the requirement / remove django-uuidfield
+* Update setup.py / move requirement to root / rename changelog file
+
+
 0.5.9 (2014-02-05)
 ------------------
 
