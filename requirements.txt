@@ -1,3 +1,2 @@
-django-uuidfield
-celery
-django-celery
+celery>=3.1.7
+django-celery>=3.1.1
