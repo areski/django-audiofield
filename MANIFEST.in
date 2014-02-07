@@ -5,3 +5,4 @@ include MIT-LICENSE.txt
 include requirements.txt
 
 recursive-include audiofield *
+recursive-exclude audiofield/static/audiofield/_mp3 *
