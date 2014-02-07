@@ -1,13 +1,11 @@
 from setuptools import setup, find_packages
-import audiofield
 import os
 import re
+import audiofield
 
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
-README = read('README.rst')
+def read(*parts):
+    return open(os.path.join(os.path.dirname(__file__), *parts)).read()
 
 
 def parse_requirements(file_name):
@@ -37,7 +35,7 @@ setup(
     name='django-audiofield',
     version=audiofield.__version__,
     description='Django application which allows audio file upload and conversion to mp3, wav and ogg format',
-    long_description=README,
+    long_description=read('README.rst'),
     url='http://github.com/Star2Billing/django-audiofield',
     author='Belaid Arezqui',
     author_email='areski@gmail.com',
