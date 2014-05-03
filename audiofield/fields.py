@@ -17,8 +17,8 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.utils.translation import ugettext_lazy as _
 from django import forms
-from middleware import threadlocals
-from tasks import audio_convert_task
+from .middleware import threadlocals
+from .tasks import audio_convert_task
 import os
 import shutil
 import logging
