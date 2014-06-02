@@ -10,4 +10,5 @@ docs/build/*
 build/
 dist/
 *.egg*
+.DS_Store
 *sublime*
