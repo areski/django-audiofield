@@ -2,10 +2,10 @@
 django-audiofield
 =================
 
-Django-audiofield is a Django application which allows audio file upload and conversion to mp3, wav and ogg format.
-It also makes it easy to play the audio files into your django application, for this we integrated a HTML5 and Flash audio player 'SoundManager2'
-
-The goal of this project is to quickly manage audio files into your django project and make it easy for admins and users to listen to them.
+Django-Audiofield is a simple app that allows allowing Audio files upload, management and
+conversion to different audio format (mp3, wav & ogg).
+It also makes it easy to play the audio files into your Django application,
+we are using the HTML5 and Flash audio player 'SoundManager2'
 
 
 .. image:: https://github.com/Star2Billing/django-audiofield/raw/master/docs/source/_static/django-admin-audiofield.png
