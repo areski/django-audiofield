@@ -55,7 +55,7 @@ class StdAudioField:
 
     def size(self):
         return self.storage.size(self.name)
-
+    
 
 class AudioField(FileField):
     '''
@@ -279,3 +279,18 @@ class AudioField(FileField):
         super(AudioField, self).contribute_to_class(cls, name)
         signals.post_save.connect(self._rename_audio, sender=cls)
         signals.post_init.connect(self._set_audio_converted, sender=cls)
+
+
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([(
+            [AudioField],
+            [],
+            {
+                "ext_whitelist": ["ext_whitelist", {}],
+            },
+        ),
+    ], ["^audiofield\.fields\.AudioField"])
+except ImportError:
+    #south is not enabled
+    pass

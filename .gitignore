@@ -11,3 +11,4 @@ build/
 dist/
 *.egg*
 *sublime*
+.DS_Store
