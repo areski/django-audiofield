@@ -1,15 +1,17 @@
-VERSION = (0, 6, 1, "final", 0)
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
+"""
+Django-audiofield is a Django application which allows audio file upload
+and conversion to mp3, wav and ogg format.
 
-def get_version():
-    if VERSION[3] == "final":
-        return "%s.%s.%s" % (VERSION[0], VERSION[1], VERSION[2])
-    elif VERSION[3] == "dev":
-        if VERSION[2] == 0:
-            return "%s.%s.%s%s" % (VERSION[0], VERSION[1], VERSION[3], VERSION[4])
-        return "%s.%s.%s.%s%s" % (VERSION[0], VERSION[1], VERSION[2], VERSION[3], VERSION[4])
-    else:
-        return "%s.%s.%s%s" % (VERSION[0], VERSION[1], VERSION[2], VERSION[3])
+It also makes it easy to play the audio files into your django application.
 
+Project location : https://github.com/Star2Billing/django-audiofield
+"""
 
-__version__ = get_version()
+__version__ = '0.6.1'  # edit also docs/source/conf.py and update requirements.txt
+__author__ = "Areski Belaid"
+__contact__ = "areski@gmail.com"
+__homepage__ = "http://areskibelaid.com/"
+__docformat__ = "restructuredtext"
