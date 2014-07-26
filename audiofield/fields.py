@@ -71,7 +71,7 @@ class AudioField(FileField):
 
     def __init__(self, *args, **kwargs):
         """Get allowed file extension type (ex. mp3, wav)"""
-        ext_whitelist = kwargs.pop("ext_whitelist")
+        ext_whitelist = kwargs.pop("ext_whitelist", tuple())
         self.ext_whitelist = [i.lower() for i in ext_whitelist]
         super(AudioField, self).__init__(*args, **kwargs)
 
