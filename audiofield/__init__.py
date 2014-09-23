@@ -10,7 +10,7 @@ It also makes it easy to play the audio files into your django application.
 Project location : https://github.com/Star2Billing/django-audiofield
 """
 
-__version__ = '0.6.2'  # edit also docs/source/conf.py and update requirements.txt
+__version__ = '0.6.3'  # edit also docs/source/conf.py and update requirements.txt
 __author__ = "Areski Belaid"
 __contact__ = "areski@gmail.com"
 __homepage__ = "http://areskibelaid.com/"
