@@ -51,8 +51,8 @@ Settings
 in your settings.py file::
 
     # Set Following variable
-    #MEDIA_ROOT = ''
-    #MEDIA_URL = ''
+    MEDIA_ROOT = ''
+    MEDIA_URL = ''
 
     In MIDDLEWARE_CLASSES add 'audiofield.middleware.threadlocals.ThreadLocals'
 
@@ -94,7 +94,7 @@ Add the following lines in your models.py file::
             return player_string
 
     audio_file_player.allow_tags = True
-    audio_file_player.short_description = _('Audio file player')
+    audio_file_player.short_description = ('Audio file player')
 
 
 Add the following lines in your admin.py::
@@ -113,7 +113,7 @@ Add the following lines in your admin.py::
                 if os.path.exists(i.audio_file.path):
                     os.remove(i.audio_file.path)
             i.delete()
-        self.message_user(request, _("Successfully deleted %d audio files.") % n)
+        self.message_user(request, ("Successfully deleted %d audio files.") % n)
     custom_delete_selected.short_description = "Delete selected items"
 
     def get_actions(self, request):
