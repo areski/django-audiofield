@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# Copyright (C) 2011-2012 Star2Billing S.L.
+# Copyright (C) 2011-2014 Star2Billing S.L.
 #
 # The Initial Developer of the Original Code is
 # Arezqui Belaid <info@star2billing.com>
@@ -17,9 +17,8 @@ import subprocess
 
 
 class audio_convert_task(Task):
-    """
-    Convert audio files
-    """
+    """Convert audio files"""
+
     def run(self, conv, **kwargs):
         """Run conversion"""
 
