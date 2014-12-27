@@ -2,8 +2,8 @@ Django-Audiofield
 =================
 
 :Description: Django Audio Management Tools
-:maintainers: Areski_
-:contributors: `list of contributors <https://github.com/areski/django-audiofield/graphs/contributors>`_
+:Maintainer: Areski_
+:Contributors: `list of contributors <https://github.com/areski/django-audiofield/graphs/contributors>`_
 
 .. _Areski: https://github.com/areski/
 
@@ -23,9 +23,10 @@ Django-Audiofield
     :target: https://pypi.python.org/pypi/django-audiofield/
     :alt: License
 
+
 Django-Audiofield is a simple app that allows Audio files upload, management and conversion to different audio format (mp3, wav & ogg), which also makes it easy to play audio files into your Django application.
 
-we are using the HTML5 and Flash audio player SoundManager2_
+We are using the HTML5 and Flash audio player SoundManager2_
 
 .. _SoundManager2: http://www.schillmania.com/projects/soundmanager2/
 
