@@ -11,13 +11,19 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from django.contrib.auth.models import User
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from audiofield.intermediate_model_base_class import Model
 from audiofield.fields import AudioField
 import os.path
+
+try:
+    from django.contrib.auth import get_user_model
+    User = settings.AUTH_USER_MODEL
+except ImportError:
+    from django.contrib.auth.models import User
 
 
 class AudioFile(Model):
