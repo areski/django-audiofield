@@ -198,3 +198,13 @@ License
 =======
 
 Django-Audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
+
+
+TODO
+====
+
+- Use pydub (http://pydub.com) to lift the audio conversion away from django-audiofield
+
+- integrate with django-storage (http://django-storages.readthedocs.org/)
+
+- support more formats
