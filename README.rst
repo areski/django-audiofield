@@ -1,18 +1,38 @@
-=================
-django-audiofield
+Django-Audiofield
 =================
 
-Django-Audiofield is a simple app that allows allowing Audio files upload, management and
-conversion to different audio format (mp3, wav & ogg).
-It also makes it easy to play the audio files into your Django application,
-we are using the HTML5 and Flash audio player 'SoundManager2'
+:Description: Django Audio Management Tools
+:Maintainer: Areski_
+:Contributors: `list of contributors <https://github.com/areski/django-audiofield/graphs/contributors>`_
 
+.. _Areski: https://github.com/areski/
+
+.. image:: https://pypip.in/version/django-audiofield/badge.svg
+    :target: https://pypi.python.org/pypi/django-audiofield/
+    :alt: Latest Version
+
+.. image:: https://pypip.in/download/django-audiofield/badge.svg
+    :target: https://pypi.python.org/pypi/django-audiofield/
+    :alt: Downloads
+
+.. image:: https://pypip.in/py_versions/django-audiofield/badge.svg
+    :target: https://pypi.python.org/pypi/django-audiofield/
+    :alt: Supported Python versions
+
+.. image:: https://pypip.in/license/django-audiofield/badge.svg
+    :target: https://pypi.python.org/pypi/django-audiofield/
+    :alt: License
+
+
+Django-Audiofield is a simple app that allows Audio files upload, management and conversion to different audio format (mp3, wav & ogg), which also makes it easy to play audio files into your Django application.
+
+We are using the HTML5 and Flash audio player SoundManager2_
+
+.. _SoundManager2: http://www.schillmania.com/projects/soundmanager2/
 
 .. image:: https://github.com/Star2Billing/django-audiofield/raw/master/docs/source/_static/django-admin-audiofield.png
 
 .. image:: https://github.com/Star2Billing/django-audiofield/raw/master/docs/source/_static/django-admin-audiofield-upload.png
-
-More information about Soundmanager2 : http://www.schillmania.com/projects/soundmanager2/
 
 
 Installation
@@ -51,8 +71,8 @@ Settings
 in your settings.py file::
 
     # Set Following variable
-    #MEDIA_ROOT = ''
-    #MEDIA_URL = ''
+    MEDIA_ROOT = ''
+    MEDIA_URL = ''
 
     In MIDDLEWARE_CLASSES add 'audiofield.middleware.threadlocals.ThreadLocals'
 
@@ -94,7 +114,7 @@ Add the following lines in your models.py file::
             return player_string
 
     audio_file_player.allow_tags = True
-    audio_file_player.short_description = _('Audio file player')
+    audio_file_player.short_description = ('Audio file player')
 
 
 Add the following lines in your admin.py::
@@ -113,7 +133,7 @@ Add the following lines in your admin.py::
                 if os.path.exists(i.audio_file.path):
                     os.remove(i.audio_file.path)
             i.delete()
-        self.message_user(request, _("Successfully deleted %d audio files.") % n)
+        self.message_user(request, ("Successfully deleted %d audio files.") % n)
     custom_delete_selected.short_description = "Delete selected items"
 
     def get_actions(self, request):
@@ -178,3 +198,13 @@ License
 =======
 
 Django-Audiofield is licensed under MIT, see `MIT-LICENSE.txt`.
+
+
+TODO
+====
+
+- Use pydub (http://pydub.com) to lift the audio conversion away from django-audiofield
+
+- integrate with django-storage (http://django-storages.readthedocs.org/)
+
+- support more formats

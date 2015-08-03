@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# Copyright (C) 2011-2012 Star2Billing S.L.
+# Copyright (C) 2011-2014 Star2Billing S.L.
 #
 # The Initial Developer of the Original Code is
 # Arezqui Belaid <info@star2billing.com>
@@ -19,14 +19,15 @@ import os
 
 class AudioFileAdmin(admin.ModelAdmin):
     """Allows the administrator to view and modify uploaded audio files"""
+
     list_display = ('id', 'name', 'audio_file_player', 'created_date', 'user')
-    #list_display_links = ['id', 'name',]
+    # list_display_links = ['id', 'name',]
     ordering = ('id', )
 
     actions = ['custom_delete_selected']
 
     def custom_delete_selected(self, request, queryset):
-        #custom delete code
+        # custom delete code
         n = queryset.count()
         for i in queryset:
             if i.audio_file:
