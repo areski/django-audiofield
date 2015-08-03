@@ -21,13 +21,13 @@ class AudioFileAdmin(admin.ModelAdmin):
     """Allows the administrator to view and modify uploaded audio files"""
 
     list_display = ('id', 'name', 'audio_file_player', 'created_date', 'user')
-    #list_display_links = ['id', 'name',]
+    # list_display_links = ['id', 'name',]
     ordering = ('id', )
 
     actions = ['custom_delete_selected']
 
     def custom_delete_selected(self, request, queryset):
-        #custom delete code
+        # custom delete code
         n = queryset.count()
         for i in queryset:
             if i.audio_file:

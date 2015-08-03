@@ -11,28 +11,28 @@
 # Arezqui Belaid <info@star2billing.com>
 #
 
-from celery.task import Task
+from celery.utils.log import get_task_logger
+from celery.decorators import task
 import subprocess
-#import shlex
+# import shlex
+
+logger = get_task_logger(__name__)
 
 
-class audio_convert_task(Task):
+@task()
+def audio_convert_task(conv):
     """Convert audio files"""
 
-    def run(self, conv, **kwargs):
-        """Run conversion"""
+    logger.info('Received a request to convert audio file :> ' + str(conv))
 
-        logger = self.get_logger(**kwargs)
+    # Option 1 : Popen
+    response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (filetype, error) = response.communicate()
+    if error:
+        logger.error('Error conversion : %s ' % error)
 
-        #Option 1 : Popen
-        response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        (filetype, error) = response.communicate()
-        if error:
-            logger.info('Error conversion : %s ' % error)
+    # Option 2 : Popen & Shlex
+    # args = shlex.split(conv)
+    # p = subprocess.Popen(args)
 
-        #Option 2 : Popen & Shlex
-        #args = shlex.split(conv)
-        #p = subprocess.Popen(args)
-
-        logger.info('Received a request to convert audio file :> ' + str(conv))
-        return response
+    return response

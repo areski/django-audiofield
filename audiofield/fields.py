@@ -1,4 +1,4 @@
-    #
+#
 # django-audiofield License
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -24,10 +24,8 @@ import shutil
 import logging
 from random import choice, seed
 
-
 seed()
 logger = logging.getLogger('audiofield_log')
-
 CONVERT_TYPE_CHK = {0: 'org', 1: 'mp3', 2: 'wav', 3: 'ogg'}
 
 
@@ -104,7 +102,7 @@ class AudioField(FileField):
         return data
 
     def _get_converted_filename(self, filename):
-        #Not used
+        # Not used
         '''Returns the audio converted name associated to the standard audio filename
         * Example: /var/www/myproject/media/audio/picture_1.wav
             will return /var/www/myproject/media/audio/picture_1.converted.wav
@@ -116,7 +114,6 @@ class AudioField(FileField):
 
     def _convert_audio(self, filename, instance=None, ext=None):
         '''Convert uploaded audio file to selected format'''
-
         request = threadlocals.get_current_request()
 
         convert_type = 0
@@ -124,15 +121,15 @@ class AudioField(FileField):
         freq_value = 0
 
         if 'convert_type' in request.POST:
-          convert_type = int(request.POST["convert_type"])
+            convert_type = int(request.POST["convert_type"])
         if 'channel_no' in request.POST:
-          channel_no = int(request.POST["channel_type"])
+            channel_no = int(request.POST["channel_type"])
         if 'freq_type' in request.POST:
-          freq_value = int(request.POST["freq_type"])
+            freq_value = int(request.POST["freq_type"])
 
         splitted_filename = list(os.path.splitext(filename))[0]  # converted filename without ext
 
-        logger.debug("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
+        logger.info("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
 
         filename_temp = filename[:-4] + '_temp'
 
@@ -140,30 +137,30 @@ class AudioField(FileField):
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug("convert MP3 to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
 
-            #prepare Sox parameters for Channels convertion
+            # prepare Sox parameters for Channels convertion
             conv_channel = "-e signed-integer -c %s" % str(channel_no) if channel_no > 0 else ''
 
-            #prepare Sox parameters for Frequency convertion
+            # prepare Sox parameters for Frequency convertion
             conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
 
             conv = "sox %s %s %s %s.wav" % (filename, conv_freq, conv_channel, splitted_filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("Sox command :> %s" % conv)
 
         # 2) MP3 TO OGG
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
             logger.debug('MP3 to OGG')
             conv = "dir2ogg -q 4 %s" % (filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("command :> %s" % conv)
 
         # 3) WAV TO MP3
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
             logger.debug('WAV to MP3')
-            #conv = "lame -V2 %s %s.mp3" % (filename,  filename)
-            #conv = "lame -h %s %s.mp3" % (filename,  filename)
+            # conv = "lame -V2 %s %s.mp3" % (filename,  filename)
+            # conv = "lame -h %s %s.mp3" % (filename,  filename)
             conv = "sox %s %s.mp3" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("Sox command :> %s" % conv)
 
         # 3) WAV TO WAV
@@ -172,20 +169,20 @@ class AudioField(FileField):
 
             filename_temp = filename_temp + '.wav'
 
-            #prepare Sox parameters for Channels convertion
+            # prepare Sox parameters for Channels convertion
             conv_channel = "-s -c %s" % str(channel_no) if channel_no > 0 else ''
 
-            #prepare Sox parameters for Frequency convertion
+            # prepare Sox parameters for Frequency convertion
             conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
 
             conv = "sox %s %s %s %s.wav" % (filename_temp, conv_freq, conv_channel, splitted_filename)
-            #cmd = 'sox /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785_temp.wav -r 8000 -s -c 1 /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785.wav'
-            #print "first file converted!"
+            # cmd = 'sox /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785_temp.wav -r 8000 -s -c 1 /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785.wav'
+            # print "first file converted!"
 
-            #create a temp copy of the file
+            # create a temp copy of the file
             shutil.copy2(filename, filename_temp)
 
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("result :> %s" % str(result))
             logger.debug("command :> %s" % conv)
 
@@ -193,22 +190,22 @@ class AudioField(FileField):
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
             logger.debug('WAV to OGG')
             conv = "sox %s %s.ogg" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("command :> %s" % conv)
 
         # 5) OGG TO MP3
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
             logger.debug('OGG to MP3')
             conv = "sox %s %s.mp3" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("command :> %s" % conv)
 
         # 6) OGG TO WAV
         if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug('OGG to WAV')
-            #conv = "sox %s %s.wav" % (filename, splitted_filename)
+            # conv = "sox %s %s.wav" % (filename, splitted_filename)
             conv = "avconv -i %s -map_metadata 0:s:0 %s.wav" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv)
+            result = audio_convert_task.apply_async((conv,), countdown=5)
             logger.debug("command :> %s" % conv)
 
     def _rename_audio(self, instance=None, **kwargs):
@@ -217,9 +214,9 @@ class AudioField(FileField):
         if getattr(instance, self.name):
             filename = getattr(instance, self.name).path
 
-            #Get the extension and limit to 3 chars
+            # Get the extension and limit to 3 chars
             ext = os.path.splitext(filename)[1].lower()[:4]
-            #Get new file name and make sure it's unique
+            # Get new file name and make sure it's unique
             dst = self.generate_filename(instance, '%s%s%s' % (self.filename_prefix, self.uuid, ext))
             dst_fullpath = os.path.join(settings.MEDIA_ROOT, dst)
 
@@ -235,10 +232,10 @@ class AudioField(FileField):
 
                     # 0 => Keep original
                     if convert_type > 0:
-                        #Delete original audio file
+                        # Delete original audio file
                         if os.path.exists(dst_fullpath):
-                            #Check for no .. and no *
-                            #DISABLED Delete file
+                            # Check for no .. and no *
+                            # DISABLED Delete file
                             """
                             if dst_fullpath.find('../../') == -1 and dst_fullpath.find('*') == -1:
                                 os.remove(dst_fullpath)
@@ -276,7 +273,7 @@ class AudioField(FileField):
         if data == '__deleted__':
             filename = getattr(instance, self.name).path
             if os.path.exists(filename):
-                #Check for no .. and no *
+                # Check for no .. and no *
                 if filename.find('../../') == -1 and filename.find('*') == -1:
                     os.remove(filename)
             setattr(instance, self.name, None)
@@ -302,5 +299,5 @@ try:
         ),
     ], ["^audiofield\.fields\.AudioField"])
 except ImportError:
-    #south is not enabled
+    # South is not enabled
     pass
