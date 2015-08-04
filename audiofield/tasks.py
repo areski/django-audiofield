@@ -14,16 +14,35 @@
 from celery.utils.log import get_task_logger
 from celery.decorators import task
 import subprocess
+import os
 # import shlex
 
 logger = get_task_logger(__name__)
+
+DELAY_TASK = 5  # Seconds
 
 
 @task()
 def audio_convert_task(conv):
     """Convert audio files"""
 
-    logger.info('Received a request to convert audio file :> ' + str(conv))
+    logger.info('Received a request to convert audio file in %dsecs' % DELAY_TASK)
+    run_convert_task.apply_async((conv,), countdown=DELAY_TASK)
+
+    return True
+
+
+@task()
+def run_convert_task(conv):
+    """Exec the audio convert"""
+
+    logger.info('Convert audio file :> %s' % str(conv))
+
+    filename = conv.split(' ')[1].strip()
+    if os.path.isfile(filename):
+        logger.debug("File exists!")
+    else:
+        logger.error("Error: File don't exist!")
 
     # Option 1 : Popen
     response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
