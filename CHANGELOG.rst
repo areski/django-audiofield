@@ -2,6 +2,13 @@ Changelog
 =========
 
 
+0.8.0 (2016-01-12)
+------------------
+
+* Remix when 2 channels detected
+* Improvement setup.py
+
+
 0.7.0 (2015-12-15)
 ------------------
 

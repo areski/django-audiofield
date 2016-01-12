@@ -109,8 +109,8 @@ class CustomerAudioFileWidget(AdminFileWidget):
         - audio player to play uploaded file
         - file browser
         - hidden variables which are set in settings.py
-            - audio type conversion
-            - If conversion is mp3 to wav, you can add channel type & frequency
+        - audio type conversion
+        - If conversion is mp3 to wav, you can add channel type & frequency
     '''
     input_type = 'file'
 
