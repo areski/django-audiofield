@@ -121,6 +121,7 @@ class AudioField(FileField):
         channel_no = 0
         freq_value = 0
         nbchannels = 1
+        remix = ''
 
         if 'convert_type' in request.POST:
             convert_type = int(request.POST["convert_type"])
@@ -146,14 +147,11 @@ class AudioField(FileField):
         conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
 
         if nbchannels == 2:
-            remix = 'remix 1,2i'
-        else:
-            remix = ''
+            remix = 'remix -'
 
         # 1) MP3 TO WAV
         if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
             logger.debug("convert MP3 to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
-
             conv = "sox %s %s %s %s.wav %s" % (filename, conv_freq, conv_channel, splitted_filename, remix)
             conv = conv.replace('  ', ' ')
             result = audio_convert_task.delay(conv)
@@ -168,16 +166,14 @@ class AudioField(FileField):
         # 3) WAV TO MP3
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
             logger.debug('WAV to MP3')
-            # conv = "lame -V2 %s %s.mp3" % (filename,  filename)
-            # conv = "lame -h %s %s.mp3" % (filename,  filename)
             conv = "sox %s %s.mp3 %s" % (filename, splitted_filename, remix)
             result = audio_convert_task.delay(conv)
             logger.debug("Sox command :> %s" % conv)
 
         # 3) WAV TO WAV
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
-            # print("convert WAV to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
-
+            if nbchannels == 2:
+                remix = 'remix 1,2i'
             filename_temp = filename_temp + '.wav'
             conv = "sox %s %s %s %s.wav %s" % (filename_temp, conv_freq, conv_channel, splitted_filename, remix)
             conv = conv.replace('  ', ' ')
