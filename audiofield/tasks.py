@@ -15,6 +15,7 @@ from celery.utils.log import get_task_logger
 from celery.decorators import task
 import subprocess
 import os
+from uuid import uuid1
 # import shlex
 
 logger = get_task_logger(__name__)
@@ -34,6 +35,43 @@ def audio_convert_task(conv):
 
 @task()
 def run_convert_task(conv):
+    """
+    Exec the audio convert
+    This version use Bash to convert the audio as calling Sox directly fails
+    """
+    filebash = "/tmp/bash-%s.sh" % str(uuid1())
+
+    logger.warning('Convert audio file :> %s' % str(conv))
+    logger.warning('Filebash :> %s' % filebash)
+
+    filename = conv.split(' ')[1].strip()
+    if os.path.isfile(filename):
+        logger.debug("File exists!")
+    else:
+        logger.error("Error: File don't exist!")
+        return False
+
+    with open(filebash, 'w') as mfile:
+        mfile.write('#!/bin/bash\n')
+        mfile.write(conv)
+        mfile.write('\n')
+
+    cmd = [
+        'bash',
+        filebash
+    ]
+
+    # output = subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0].decode("utf-8")
+    response = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (output, error) = response.communicate()
+    if error:
+        logger.error('Error conversion : %s ' % error)
+
+    return response
+
+
+@task()
+def old_run_convert_task(conv):
     """Exec the audio convert"""
 
     logger.warning('Convert audio file :> %s' % str(conv))
@@ -48,7 +86,9 @@ def run_convert_task(conv):
     response = subprocess.Popen(conv.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (output, error) = response.communicate()
     if error:
-        logger.error('Error conversion : %s ' % error)
+        logger.error('Conv :')
+        logger.error(conv.split(' '))
+        logger.error('Error conversion2 : %s ' % error)
 
     # Option 2 : Popen & Shlex
     # args = shlex.split(conv)
