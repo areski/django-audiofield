@@ -2,6 +2,12 @@ Changelog
 =========
 
 
+0.8.2 (2016-03-01)
+------------------
+
+* Bypass the conversion through a bash script
+
+
 0.8.1 (2016-01-12)
 ------------------
 
