@@ -147,6 +147,7 @@ class AudioField(FileField):
         conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
 
         if nbchannels == 2:
+            # sox input.wav output.wav `remix -` performs a mix-down of all input channels to mono.
             remix = 'remix -'
 
         # 1) MP3 TO WAV
@@ -172,8 +173,8 @@ class AudioField(FileField):
 
         # 3) WAV TO WAV
         if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
-            if nbchannels == 2:
-                remix = 'remix 1,2i'
+            # if nbchannels == 2:
+            #     remix = 'remix 1,2i'
             filename_temp = filename_temp + '.wav'
             conv = "sox %s %s %s %s.wav %s" % (filename_temp, conv_freq, conv_channel, splitted_filename, remix)
             conv = conv.replace('  ', ' ')
