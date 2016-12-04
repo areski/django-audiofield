@@ -64,6 +64,13 @@ Install avconv on Redhat/CentOS::
     sudo make
     sudo make install
 
+Install dependencies on Windows::
+
+You can download the dependencies from the below links, mpg123 is used instead of mpg321 (make sure these programs/scripts are added to your PATH variable).
+
+SoX: <http://sox.sourceforge.net/>  
+mpg123: <http://mpg123.org/>  
+dir2ogg: <http://jak-linux.org/projects/dir2ogg/>
 
 Settings
 ========
@@ -88,6 +95,16 @@ in your settings.py file::
 
     # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
     CONVERT_TYPE_VALUE = 0
+
+    # sox command, calls 'soxi' on linux 'win32' on windows
+    SOX_CLI_COMMAND = ''
+
+    if platform == 'linux':
+      SOX_CLI_COMMAND = "soxi -c"
+    elif platform == 'win32':
+      SOX_CLI_COMMAND = "sox.exe -c"
+    else:
+      raise OSError("OS is unsupported")
 
 
 Usage
