@@ -135,9 +135,14 @@ class AudioField(FileField):
         filename_temp = filename[:-4] + '_temp'
 
         # Find the number of channels
-        if os.path.isfile(filename):
-            command = "soxi -c %s" % filename
-            response = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if os.path.isfile(filename): 
+            command = settings.SOX_CLI_COMMAND + "%s" % filename
+            response = None
+            try:
+                #command = "soxi -c %s" % filename
+                response = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            except OSError:
+                raise OSError("Unable to find SOX executable...")
             (output, error) = response.communicate()
             nbchannels = (int(output))
 
