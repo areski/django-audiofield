@@ -96,15 +96,13 @@ in your settings.py file::
     # 0-Keep original, 1-Convert to MP3, 2-Convert to WAV, 3-Convert to OGG
     CONVERT_TYPE_VALUE = 0
 
-    # sox command, calls 'soxi' on linux 'win32' on windows
+    # sox command, calls 'sox.exe' if using windows otherwise defaults to 'soxi'
     SOX_CLI_COMMAND = ''
 
-    if platform == 'linux':
-      SOX_CLI_COMMAND = "soxi -c"
-    elif platform == 'win32':
+    if platform == 'win32':
       SOX_CLI_COMMAND = "sox.exe -c"
     else:
-      raise OSError("OS is unsupported")
+      SOC_CLI_COMMAND = "soxi -c"
 
 
 Usage
