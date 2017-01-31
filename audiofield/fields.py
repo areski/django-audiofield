@@ -88,164 +88,32 @@ class AudioField(FileField):
             logger.error(error_msg)
             raise forms.ValidationError(error_msg)
 
-        convert_to = request and int(request.POST["convert_type"])
         ext = ext.split('.')[1]
         audio_type = CONVERT_TYPE_CHK[convert_to]
         error_msg = _("not allowed : file format conversion is not allowed for same audio type (except Wav)")
-        if convert_to:
+        if request:
             if ext == audio_type and ext != 'wav':
                 error_msg += ' %s format !!' % ext
                 logger.error(error_msg)
                 raise forms.ValidationError(error_msg)
-            else:
-                pass
 
         return data
 
     def _get_converted_filename(self, filename):
-        # Not used
-        '''Returns the audio converted name associated to the standard audio filename
-        * Example: /var/www/myproject/media/audio/picture_1.wav
-            will return /var/www/myproject/media/audio/picture_1.converted.wav
-        '''
-        splitted_filename = list(os.path.splitext(filename))
-        splitted_filename.insert(1, '.converted')
-        logger.debug('converted file name')
-        return ''.join(splitted_filename)
+        # Not Used
+        pass
 
     def _convert_audio(self, filename, instance=None, ext=None):
-        '''Convert uploaded audio file to selected format'''
-        request = threadlocals.get_current_request()
+        pass
 
-        convert_type = 0
-        channel_no = 0
-        freq_value = 0
-        nbchannels = 1
-        remix = ''
-
-        if 'convert_type' in request.POST:
-            convert_type = int(request.POST["convert_type"])
-        if 'channel_type' in request.POST:
-            channel_no = int(request.POST["channel_type"])
-        if 'freq_type' in request.POST:
-            freq_value = int(request.POST["freq_type"])
-
-        logger.info("convert audio : %s->%s" % (str(ext), CONVERT_TYPE_CHK[convert_type]))
-        splitted_filename = list(os.path.splitext(filename))[0]  # converted filename without ext
-        filename_temp = filename[:-4] + '_temp'
-
-        # Find the number of channels
-        if os.path.isfile(filename): 
-            command = settings.SOX_CLI_COMMAND + "%s" % filename
-            response = None
-            try:
-                #command = "soxi -c %s" % filename
-                response = subprocess.Popen(command.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            except OSError:
-                raise OSError("Unable to find SOX executable...")
-            (output, error) = response.communicate()
-            nbchannels = (int(output))
-
-        # prepare Sox parameters for Channels convertion
-        conv_channel = "-e signed-integer -c %s" % str(channel_no) if channel_no > 0 else ''
-        # prepare Sox parameters for Frequency convertion
-        conv_freq = "-r %s" % str(freq_value) if freq_value > 0 else ''
-
-        if nbchannels == 2:
-            # sox input.wav output.wav `remix -` performs a mix-down of all input channels to mono.
-            remix = 'remix -'
-
-        # 1) MP3 TO WAV
-        if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'wav':
-            logger.debug("convert MP3 to WAV - channel %s freq: %s" % (str(channel_no), str(freq_value)))
-            conv = "sox %s %s %s %s.wav %s" % (filename, conv_freq, conv_channel, splitted_filename, remix)
-            conv = conv.replace('  ', ' ')
-            result = audio_convert_task.delay(conv)
-            logger.debug("Sox command :> %s" % conv)
-
-        # 2) MP3 TO OGG
-        if ext == 'mp3' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
-            logger.debug('MP3 to OGG')
-            conv = "dir2ogg -q 4 %s" % (filename)
-            result = audio_convert_task.delay(conv)
-
-        # 3) WAV TO MP3
-        if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
-            logger.debug('WAV to MP3')
-            conv = "sox %s %s.mp3 %s" % (filename, splitted_filename, remix)
-            result = audio_convert_task.delay(conv)
-            logger.debug("Sox command :> %s" % conv)
-
-        # 3) WAV TO WAV
-        if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'wav':
-            # if nbchannels == 2:
-            #     remix = 'remix 1,2i'
-            filename_temp = filename_temp + '.wav'
-            conv = "sox %s %s %s %s.wav %s" % (filename_temp, conv_freq, conv_channel, splitted_filename, remix)
-            conv = conv.replace('  ', ' ')
-            # cmd = 'sox /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785_temp.wav -r 8000 -e signed-integer -c 1 /usr/share/newfies/../newfies/usermedia/upload/audiofiles/audio-file-XFPQN-6216731785.wav'
-            # create a temp copy of the file
-            shutil.copy2(filename, filename_temp)
-            result = audio_convert_task.delay(conv)
-            logger.debug("result :> %s" % str(result))
-
-        # 4) WAV TO OGG
-        if ext == 'wav' and CONVERT_TYPE_CHK[convert_type] == 'ogg':
-            logger.debug('WAV to OGG')
-            conv = "sox %s %s.ogg %s" % (filename, splitted_filename, remix)
-            result = audio_convert_task.delay(conv)
-
-        # 5) OGG TO MP3
-        if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'mp3':
-            logger.debug('OGG to MP3')
-            conv = "sox %s %s.mp3%s" % (filename, splitted_filename, remix)
-            result = audio_convert_task.delay(conv)
-
-        # 6) OGG TO WAV
-        if ext == 'ogg' and CONVERT_TYPE_CHK[convert_type] == 'wav':
-            logger.debug('OGG to WAV')
-            # conv = "sox %s %s.wav" % (filename, splitted_filename)
-            conv = "avconv -i %s -map_metadata 0:s:0 %s.wav" % (filename, splitted_filename)
-            result = audio_convert_task.delay(conv)
-
-    def _rename_audio(self, instance=None, **kwargs):
+    def _check_if_exists(self, instance=None, **kwargs):
         '''Rename uploaded audio file & calls methods to convert audio file format if
         convert_to is selected'''
         if getattr(instance, self.name):
             filename = getattr(instance, self.name).path
 
-            # Get the extension and limit to 3 chars
-            ext = os.path.splitext(filename)[1].lower()[:4]
-            # Get new file name and make sure it's unique
-            dst = self.generate_filename(instance, '%s%s%s' % (self.filename_prefix, self.uuid, ext))
-            dst_fullpath = os.path.join(settings.MEDIA_ROOT, dst)
-
-            # Same file should not exits
-            if not os.path.isfile(dst_fullpath):
-
-                if os.path.abspath(filename) != os.path.abspath(dst_fullpath):
-                    os.rename(filename, dst_fullpath)
-                    self._convert_audio(dst_fullpath, instance, ext[1:4])
-
-                    request = threadlocals.get_current_request()
-                    convert_type = int(request.POST["convert_type"])
-
-                    # 0 => Keep original
-                    if convert_type > 0:
-                        # Delete original audio file
-                        if os.path.exists(dst_fullpath):
-                            # Check for no .. and no *
-                            # DISABLED Delete file
-                            """
-                            if dst_fullpath.find('../../') == -1 and dst_fullpath.find('*') == -1:
-                                os.remove(dst_fullpath)
-                            """
-                        ext = '.' + CONVERT_TYPE_CHK[convert_type]
-                        dst = self.generate_filename(instance, '%s%s%s' %
-                                                    (self.filename_prefix, self.uuid, ext))
-                    setattr(instance, self.attname, dst)
-                    instance.save()
-            else:
+            # Same file should not exist
+            if os.path.isfile(filename):
                 error_msg = ("file already exists!")
                 logger.error(error_msg)
 
@@ -284,9 +152,8 @@ class AudioField(FileField):
     def contribute_to_class(self, cls, name):
         '''Call methods for generating all operations on specified signals'''
         super(AudioField, self).contribute_to_class(cls, name)
-        signals.post_save.connect(self._rename_audio, sender=cls)
+        signals.post_save.connect(self._check_if_exists, sender=cls)
         signals.post_init.connect(self._set_audio_converted, sender=cls)
-
 
 try:
     from south.modelsinspector import add_introspection_rules
