@@ -15,7 +15,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from audiofield.intermediate_model_base_class import Model
 from audiofield.fields import AudioField
 import os.path
 
@@ -26,7 +25,7 @@ except ImportError:
     from django.contrib.auth.models import User
 
 
-class AudioFile(Model):
+class AudioFile(models.Model):
     """
     This Model describe the Audio used on the platform,
     this allow to upload audio file and configure
