@@ -7,21 +7,21 @@ Django-Audiofield
 
 .. _Areski: https://github.com/areski/
 
-.. image:: https://pypip.in/version/django-audiofield/badge.svg
-    :target: https://pypi.python.org/pypi/django-audiofield/
-    :alt: Latest Version
+.. image:: https://img.shields.io/pypi/v/django-audiofield.svg
+  :target: https://pypi.python.org/pypi/django-audiofield/
+  :alt: Latest Version
 
-.. image:: https://pypip.in/download/django-audiofield/badge.svg
-    :target: https://pypi.python.org/pypi/django-audiofield/
-    :alt: Downloads
+.. image:: https://img.shields.io/pypi/dm/django-audiofield.svg
+  :target: https://pypi.python.org/pypi/django-audiofield/
+  :alt: Downloads
 
-.. image:: https://pypip.in/py_versions/django-audiofield/badge.svg
-    :target: https://pypi.python.org/pypi/django-audiofield/
-    :alt: Supported Python versions
+.. image:: https://img.shields.io/pypi/pyversions/django-audiofield.svg
+  :target: https://pypi.python.org/pypi/django-audiofield/
+  :alt: Supported Python versions
 
-.. image:: https://pypip.in/license/django-audiofield/badge.svg
-    :target: https://pypi.python.org/pypi/django-audiofield/
-    :alt: License
+.. image:: https://img.shields.io/pypi/l/django-audiofield.svg
+  :target: https://pypi.python.org/pypi/django-audiofield/
+  :alt: License
 
 
 Django-Audiofield is a simple app that allows Audio files upload, management and conversion to different audio format (mp3, wav & ogg), which also makes it easy to play audio files into your Django application.
@@ -109,8 +109,7 @@ Add the following lines in your models.py file::
         """audio player tag for admin"""
         if self.audio_file:
             file_url = settings.MEDIA_URL + str(self.audio_file)
-            player_string = '<ul class="playlist"><li style="width:250px;">\
-            <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(self.audio_file.name))
+            player_string = '<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)
             return player_string
 
     audio_file_player.allow_tags = True
@@ -140,22 +139,6 @@ Add the following lines in your admin.py::
         actions = super(AudioFileAdmin, self).get_actions(request)
         del actions['delete_selected']
         return actions
-
-
-If you are not using the installation script, please copy following template
-file to your template directory::
-
-    cp audiofield/templates/common_audiofield.html /path/to/your/templates/directory/
-
-
-Add the following in your template files (like admin/change_form.html, admin/change_list.html etc.
-in which you are using audio field type)::
-
-
-    {% block extrahead %}
-    {{ block.super }}
-        {% include "common_audiofield.html" %}
-    {% endblock %}
 
 
 Then perform following commands to create the table and collect the static files::

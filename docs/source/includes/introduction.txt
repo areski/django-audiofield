@@ -55,8 +55,7 @@ Add the following lines in your models.py file::
         """audio player tag for admin"""
         if self.audio_file:
             file_url = settings.MEDIA_URL + str(self.audio_file)
-            player_string = '<ul class="playlist"><li style="width:250px;">\
-            <a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(self.audio_file.name))
+            player_string = '<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)
             return player_string
     audio_file_player.allow_tags = True
     audio_file_player.short_description = _('Audio file player')

@@ -42,4 +42,5 @@ class AudioFileAdmin(admin.ModelAdmin):
         del actions['delete_selected']
         return actions
 
+
 admin.site.register(AudioFile, AudioFileAdmin)

@@ -78,9 +78,9 @@ class AdminAudioFileWidget(AdminFileWidget):
         help_text = _('Allowed format - mp3 wav and ogg')
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
-            output.append(item % (_('Currently:'),
-                                  u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' \
-                                  % (file_url, os.path.basename(value.name))))
+            output.append(item % (
+                _('Currently:'),
+                u'<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)))
             output.append(item % (_('Change:'), input + '<br/>%s' % help_text))
         else:
             output.append(item % (_('Upload:'), input + '<br/>%s' % help_text))
@@ -136,8 +136,9 @@ class CustomerAudioFileWidget(AdminFileWidget):
             dst_fullpath = os.path.join(settings.MEDIA_ROOT, str(value))
             if os.path.isfile(dst_fullpath):
                 file_url = settings.MEDIA_URL + str(value)
-                output.append(item % (_('Currently:'),
-                                      u'<ul class="playlist" style="margin-left: 0em;padding-left: 0px;"><li style="width:250px;"><a href="%s">%s</a></li></ul>' % (file_url, os.path.basename(value.name))))
+                output.append(item % (
+                    _('Currently:'),
+                    u'<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)))
                 output.append(item % (_('Change:'), input + help_text))
                 form_var = 1  # no error
             else:
