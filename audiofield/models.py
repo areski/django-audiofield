@@ -16,7 +16,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from audiofield.fields import AudioField
-import os.path
 
 try:
     from django.contrib.auth import get_user_model
@@ -57,8 +56,8 @@ class AudioFile(models.Model):
         """audio player tag for admin"""
         if self.audio_file:
             file_url = settings.MEDIA_URL + str(self.audio_file)
-            player_string = '<ul class="playlist"><li style="width:250px;"><a href="%s">%s</a></li></ul>' % \
-                (file_url, os.path.basename(file_url))
+            player_string = '<audio src="%s" controls>Your browser does not support the audio element.</audio>' % \
+                (file_url)
             return player_string
 
     audio_file_player.allow_tags = True
