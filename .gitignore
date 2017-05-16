@@ -1,0 +1,14 @@
+*.pyc
+*dilla*
+*.db
+*nbproject*
+*devserver*
+*.idea*
+test.db
+settings_local.py
+docs/build/*
+build/
+dist/
+*.egg*
+.DS_Store
+*sublime*

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>SoundManager 2 Demo: Play MP3 links on a page, "page as playlist" style</title>
+<style type="text/css">
+
+/* 
+
+ -------------------------------------------------------------
+
+ In-page demo CSS - see external CSS for actual relevant stuff.
+
+ --------------------------------------------------------------
+
+ */
+
+#soundmanager-debug {
+ /* SM2 debug container (optional, makes debug more useable) */
+ position:absolute;position:fixed;*position:absolute;bottom:10px;right:10px;width:50em;height:18em;overflow:auto;background:#fff;margin:1em;padding:1em;border:1px solid #999;font-family:"lucida console",verdana,tahoma,"sans serif";font-size:x-small;line-height:1.5em;opacity:0.9;filter:alpha(opacity=90);z-index:99;
+}
+
+body {
+ font:50% normal verdana,arial,tahoma,"sans serif";
+}
+</style>
+<link rel="stylesheet" type="text/css" href="css/page-player.css" />
+<!-- soundManager.useFlashBlock: related CSS -->
+<link rel="stylesheet" type="text/css" href="../flashblock/flashblock.css" />
+<script type="text/javascript" src="../script/soundmanager2.js"></script>
+
+
+<script>
+
+/* --------
+
+  Config override: This demo uses shiny flash 9 stuff, overwriting Flash 8-based defaults
+  Alternate PP_CONFIG object must be defined before soundManager.onready()/onload() fire.
+  Alternately, edit the config in page-player.js to simply use the values below by default
+
+-------- */
+
+// demo only, but you can use these settings too..
+soundManager.flashVersion = 9;
+soundManager.preferFlash = true; // for visualization effects
+soundManager.useHighPerformance = true; // keep flash on screen, boost performance
+soundManager.wmode = 'transparent'; // transparent SWF, if possible
+soundManager.useFastPolling = true; // increased JS callback frequency
+soundManager.url = '../swf/';
+soundManager.debugFlash = true;
+// Added
+//soundManager.useHTML5Audio = false;
+
+// custom page player configuration
+
+var PP_CONFIG = {
+  autoStart: false,      // begin playing first sound when page loads
+  playNext: false,        // stop after one sound, or play through list until end
+  useThrottling: false,  // try to rate-limit potentially-expensive calls (eg. dragging position around)</span>
+  usePeakData: true,     // [Flash 9 only] whether or not to show peak data (left/right channel values) - nor noticable on CPU
+  useWaveformData: false,// [Flash 9 only] show raw waveform data - WARNING: LIKELY VERY CPU-HEAVY
+  useEQData: false,      // [Flash 9 only] show EQ (frequency spectrum) data
+  useFavIcon: false,     // try to apply peakData to address bar (Firefox + Opera) - performance note: appears to make Firefox 3 do some temporary, heavy disk access/swapping/garbage collection at first(?) - may be too heavy on CPU
+  useMovieStar: true     // Flash 9.0r115+ only: Support for a subset of MPEG4 formats.
+}
+
+</script>
+
+<script type="text/javascript" src="script/page-player.js"></script>
+<script type="text/javascript">
+
+// demo only..
+function setTheme(sTheme) {
+  var o = document.getElementsByTagName('ul')[0];
+  o.className = 'playlist'+(sTheme?' '+sTheme:'');
+  return false;
+}
+</script>
+</head>
+
+<body>
+
+<div>
+
+ <div id="sm2-container">
+  <!-- SM2 flash movie goes here -->
+ </div>
+
+ <ul class="playlist">
+
+  <li><a href="../_mp3/rain.mp3">Rain</a></li>
+  <li><a href="../_mp3/webconf.wav">webconf.wav</a></li>
+  <li><a href="../_mp3/walking.mp3">Walking</a></li>
+  <li><a href="../_mp3/duck01.wav">Duck</a></li>
+
+ </ul>
+
+ <ul class="playlist">
+  <li><a href="http://freshly-ground.com/data/video/Rain%20on%20Car%20Roof.aac">Rain on Car Roof <span class="comment">(MPEG4 .AAC audio, 128 kbps AAC-LC exported from QuickTime)</span></a></li>
+  <li><a href="http://freshly-ground.com/data/video/Jellyfish.mov">Jellyfish <span class="comment">(848x480 H.264 video, playing audio portion only)</span></a></li>
+ </ul>
+
+</body>
+</html>

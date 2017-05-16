@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Django-Audiofield\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-17 18:45+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Belaid Arezqui <areski@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.py:25
+#, python-format
+msgid "Successfully deleted %d audio files."
+msgstr "成功的刪除 %d 語音檔案."
+
+#: models.py:14
+msgid "Audio Name"
+msgstr "語音檔案名稱"
+
+#: models.py:15
+msgid "Audio file label"
+msgstr "語音檔案標籤"
+
+#: models.py:19 models.py:27
+msgid "Audio file"
+msgstr "語音檔案"
+
+#: models.py:21
+msgid "Select User"
+msgstr "選擇使用者"
+
+#: models.py:28
+msgid "Audio files"
+msgstr "語音檔案"
+
+#: models.py:46
+msgid "Audio file player"
+msgstr "語音檔案撥放"
+
+#: settings.py:173
+msgid "English"
+msgstr "英文"
+
+#: settings.py:175
+msgid "Spanish"
+msgstr "西班牙文"
+
+#: settings.py:176
+msgid "Portuguese"
+msgstr ""
+
+#: widgets.py:10 widgets.py:16
+msgid "Keep original"
+msgstr "保留原有"
+
+#: widgets.py:11
+msgid "Mono"
+msgstr "單音"
+
+#: widgets.py:12
+msgid "Stereo"
+msgstr "立體聲"
+
+#: widgets.py:17
+msgid "8000 Hz"
+msgstr "800 Hz"
+
+#: widgets.py:18
+msgid "16000 Hz"
+msgstr "1600 Hz"
+
+#: widgets.py:19
+msgid "22050 Hz"
+msgstr "22050 Hz"
+
+#: widgets.py:20
+msgid "44100 Hz"
+msgstr "44100 Hz"
+
+#: widgets.py:21
+msgid "48000 Hz"
+msgstr "48000 Hz"
+
+#: widgets.py:25
+msgid "Keep original audio file"
+msgstr "保留原有語音檔案"
+
+#: widgets.py:26
+msgid "Convert to MP3"
+msgstr "轉成 MP3"
+
+#: widgets.py:27
+msgid "Convert to WAV"
+msgstr "轉成 WAV"
+
+#: widgets.py:28
+msgid "Convert to OGG"
+msgstr "轉成 OGG"
+
+#: widgets.py:65
+msgid "Allowed format - mp3 wav and ogg"
+msgstr "允許的格式 - mp3 wav and ogg"
+
+#: widgets.py:68 widgets.py:121
+msgid "Currently:"
+msgstr "現在"
+
+#: widgets.py:71 widgets.py:124
+msgid "Change:"
+msgstr "變更"
+
+#: widgets.py:73
+msgid "Upload:"
+msgstr "上傳"
+
+#: widgets.py:75
+msgid "Convert To:"
+msgstr "轉成:"
+
+#: widgets.py:76
+msgid "Channel:"
+msgstr "頻道"
+
+#: widgets.py:77
+msgid "Frequency:"
+msgstr "頻率"
+
+#: widgets.py:80
+msgid "Delete:"
+msgstr "刪除"
+
+#: widgets.py:117
+msgid "Allowed format - mp3, wav and ogg"
+msgstr "允許的格式 - mp3, wav 以及ogg"
