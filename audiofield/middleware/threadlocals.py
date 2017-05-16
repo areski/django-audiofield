@@ -15,15 +15,24 @@ import threading
 
 _thread_locals = threading.local()
 
+# middleware updated to be compatible with Django 1.10+ per below
+# https://docs.djangoproject.com/en/1.11/topics/http/middleware/#upgrading-middleware
+#
+# Issue submitted to audiofield project on github at: https://github.com/areski/django-audiofield/issues/27
 
-def get_current_request():
-    return getattr(_thread_locals, 'request', None)
+class ThreadLocals(object): 
+	"""
+	Middleware that gets various objects from the
+	request object and saves them in thread local storage.
+	"""
+	
 
+	def __init__(self, get_response):
+		self.get_response = get_response
 
-class ThreadLocals(object):
-    """
-    Middleware that gets various objects from the
-    request object and saves them in thread local storage.
-    """
-    def process_request(self, request):
-        _thread_locals.request = request
+	def __call__(self, request):
+		
+
+		_thread_locals.request = request
+
+		response = self.process_request(request)
