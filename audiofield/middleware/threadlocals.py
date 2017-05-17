@@ -27,7 +27,9 @@ class ThreadLocals(object):
 	Middleware that gets various objects from the
 	request object and saves them in thread local storage.
 	"""
-	
+	def process_request(self, request):
+		_thread_locals.request = request	
+
 	def __init__(self, get_response):
 		self.get_response = get_response
 
@@ -35,7 +37,12 @@ class ThreadLocals(object):
 		response = None
 
 		_thread_locals.request = request
+		
 		if hasattr(self, 'process_request'):
 			response = self.process_request(request)
 		if not response:
 			response = self.process_request(request)
+
+		self.get_response(request)
+
+		return response
