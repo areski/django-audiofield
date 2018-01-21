@@ -10,6 +10,7 @@
 # The Initial Developer of the Original Code is
 # Arezqui Belaid <info@star2billing.com>
 #
+from __future__ import unicode_literals
 
 from django.contrib.admin.widgets import AdminFileWidget
 from django import forms
@@ -46,10 +47,10 @@ def add_select_box(select_name, select_value):
     '''
     function to create Html select option
     '''
-    select_box = u'<select name="%s">' % (select_name)
+    select_box = '<select name="%s">' % (select_name)
     for i in select_value:
-        select_box += u'<option value="%s">%s</option>' % (i[0], i[1])
-    select_box += u'</select>'
+        select_box += '<option value="%s">%s</option>' % (i[0], i[1])
+    select_box += '</select>'
     return select_box
 
 
@@ -72,15 +73,15 @@ class AdminAudioFileWidget(AdminFileWidget):
         freq_select_box = add_select_box('freq_type', FREQ_TYPE)
 
         file_url = ''
-        item = u'<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
+        item = '<tr><td style="vertical-align: middle;">%s</td><td>%s</td>'
         output = []
-        output.append(u'<table style="border-style: none;">')
+        output.append('<table style="border-style: none;">')
         help_text = _('Allowed format - mp3 wav and ogg')
         if value and type(value).__name__ != 'str':
             file_url = settings.MEDIA_URL + str(value)
             output.append(item % (
                 _('Currently:'),
-                u'<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)))
+                '<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)))
             output.append(item % (_('Change:'), input + '<br/>%s' % help_text))
         else:
             output.append(item % (_('Upload:'), input + '<br/>%s' % help_text))
@@ -92,9 +93,9 @@ class AdminAudioFileWidget(AdminFileWidget):
         if value:
             # split colon to force "Delete" that is already translated
             output.append(item % (_('Delete:'), '<input type="checkbox" name="%s_delete"/>' % name))
-        output.append(u'</table>')
+        output.append('</table>')
 
-        return mark_safe(u''.join(output))
+        return mark_safe(''.join(output))
 
     def value_from_datadict(self, data, files, name):
         if not data.get('%s_delete' % name):
@@ -119,17 +120,17 @@ class CustomerAudioFileWidget(AdminFileWidget):
 
         file_url = ''
 
-        file_select_box = u'<input type="hidden" name="convert_type" value="%s"/>' % settings.CONVERT_TYPE_VALUE
-        channel_select_box = u'<input type="hidden" name="channel_type" value="%s"/>' % settings.CHANNEL_TYPE_VALUE
-        freq_select_box = u'<input type="hidden" name="freq_type" value="%s"/>' % settings.FREQ_TYPE_VALUE
+        file_select_box = '<input type="hidden" name="convert_type" value="%s"/>' % settings.CONVERT_TYPE_VALUE
+        channel_select_box = '<input type="hidden" name="channel_type" value="%s"/>' % settings.CHANNEL_TYPE_VALUE
+        freq_select_box = '<input type="hidden" name="freq_type" value="%s"/>' % settings.FREQ_TYPE_VALUE
 
         output = []
 
         label_style = 'float:left;line-height:18px;padding-top:6px;text-align:right;'
         input_div_style = 'width:300px;margin-left:70px;'
 
-        item = u'<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
-        help_text = u'<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
+        item = '<div style="' + label_style + '">%s</div><div style="' + input_div_style + '">%s</div>'
+        help_text = '<span class="help-block">%s</span>' % _('Allowed format - mp3, wav and ogg')
 
         form_var = 0
         if value and type(value).__name__ != 'str':
@@ -138,7 +139,7 @@ class CustomerAudioFileWidget(AdminFileWidget):
                 file_url = settings.MEDIA_URL + str(value)
                 output.append(item % (
                     _('Currently:'),
-                    u'<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)))
+                    '<audio src="%s" controls>Your browser does not support the audio element.</audio>' % (file_url)))
                 output.append(item % (_('Change:'), input + help_text))
                 form_var = 1  # no error
             else:
@@ -154,7 +155,7 @@ class CustomerAudioFileWidget(AdminFileWidget):
         output.append(item % (channel_select_box, ''))
         output.append(item % (freq_select_box, ''))
 
-        return mark_safe(u''.join(output))
+        return mark_safe(''.join(output))
 
     def value_from_datadict(self, data, files, name):
         if not data.get('%s_delete' % name):
