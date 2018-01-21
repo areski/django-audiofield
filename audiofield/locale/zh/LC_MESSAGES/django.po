@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django-Audiofield\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-17 18:45+0530\n"
+"POT-Creation-Date: 2018-01-21 11:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Belaid Arezqui <areski@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,127 +17,155 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.py:25
+#: audiofield/admin.py:37
 #, python-format
 msgid "Successfully deleted %d audio files."
 msgstr "成功的刪除 %d 語音檔案."
 
-#: models.py:14
-msgid "Audio Name"
-msgstr "語音檔案名稱"
-
-#: models.py:15
-msgid "Audio file label"
-msgstr "語音檔案標籤"
-
-#: models.py:19 models.py:27
-msgid "Audio file"
-msgstr "語音檔案"
-
-#: models.py:21
-msgid "Select User"
-msgstr "選擇使用者"
-
-#: models.py:28
-msgid "Audio files"
-msgstr "語音檔案"
-
-#: models.py:46
-msgid "Audio file player"
-msgstr "語音檔案撥放"
-
-#: settings.py:173
-msgid "English"
-msgstr "英文"
-
-#: settings.py:175
-msgid "Spanish"
-msgstr "西班牙文"
-
-#: settings.py:176
-msgid "Portuguese"
+#: audiofield/fields.py:87
+msgid "not allowed filetype!"
 msgstr ""
 
-#: widgets.py:10 widgets.py:16
+#: audiofield/fields.py:94
+msgid ""
+"not allowed : file format conversion is not allowed for same audio type "
+"(except Wav)"
+msgstr ""
+
+#: audiofield/models.py:35
+#, fuzzy
+#| msgid "Audio Name"
+msgid "audio name"
+msgstr "語音檔案名稱"
+
+#: audiofield/models.py:36
+#, fuzzy
+#| msgid "Audio file label"
+msgid "audio file label"
+msgstr "語音檔案標籤"
+
+#: audiofield/models.py:39 audiofield/models.py:50
+#, fuzzy
+#| msgid "Audio file"
+msgid "audio file"
+msgstr "語音檔案"
+
+#: audiofield/models.py:40
+msgid "user"
+msgstr ""
+
+#: audiofield/models.py:41
+#, fuzzy
+#| msgid "Select User"
+msgid "select user"
+msgstr "選擇使用者"
+
+#: audiofield/models.py:47
+#, fuzzy
+#| msgid "Audio files"
+msgid "can see Audio Files"
+msgstr "語音檔案"
+
+#: audiofield/models.py:51
+#, fuzzy
+#| msgid "Audio files"
+msgid "audio files"
+msgstr "語音檔案"
+
+#: audiofield/models.py:69
+#, fuzzy
+#| msgid "Audio file player"
+msgid "audio file player"
+msgstr "語音檔案撥放"
+
+#: audiofield/widgets.py:24 audiofield/widgets.py:30
 msgid "Keep original"
 msgstr "保留原有"
 
-#: widgets.py:11
+#: audiofield/widgets.py:25
 msgid "Mono"
 msgstr "單音"
 
-#: widgets.py:12
+#: audiofield/widgets.py:26
 msgid "Stereo"
 msgstr "立體聲"
 
-#: widgets.py:17
+#: audiofield/widgets.py:31
 msgid "8000 Hz"
 msgstr "800 Hz"
 
-#: widgets.py:18
+#: audiofield/widgets.py:32
 msgid "16000 Hz"
 msgstr "1600 Hz"
 
-#: widgets.py:19
+#: audiofield/widgets.py:33
 msgid "22050 Hz"
 msgstr "22050 Hz"
 
-#: widgets.py:20
+#: audiofield/widgets.py:34
 msgid "44100 Hz"
 msgstr "44100 Hz"
 
-#: widgets.py:21
+#: audiofield/widgets.py:35
 msgid "48000 Hz"
 msgstr "48000 Hz"
 
-#: widgets.py:25
+#: audiofield/widgets.py:39
 msgid "Keep original audio file"
 msgstr "保留原有語音檔案"
 
-#: widgets.py:26
+#: audiofield/widgets.py:40
 msgid "Convert to MP3"
 msgstr "轉成 MP3"
 
-#: widgets.py:27
+#: audiofield/widgets.py:41
 msgid "Convert to WAV"
 msgstr "轉成 WAV"
 
-#: widgets.py:28
+#: audiofield/widgets.py:42
 msgid "Convert to OGG"
 msgstr "轉成 OGG"
 
-#: widgets.py:65
+#: audiofield/widgets.py:79
 msgid "Allowed format - mp3 wav and ogg"
 msgstr "允許的格式 - mp3 wav and ogg"
 
-#: widgets.py:68 widgets.py:121
+#: audiofield/widgets.py:83 audiofield/widgets.py:141
 msgid "Currently:"
 msgstr "現在"
 
-#: widgets.py:71 widgets.py:124
+#: audiofield/widgets.py:85 audiofield/widgets.py:143
 msgid "Change:"
 msgstr "變更"
 
-#: widgets.py:73
+#: audiofield/widgets.py:87
 msgid "Upload:"
 msgstr "上傳"
 
-#: widgets.py:75
-msgid "Convert To:"
+#: audiofield/widgets.py:89
+#, fuzzy
+#| msgid "Convert To:"
+msgid "Convert to:"
 msgstr "轉成:"
 
-#: widgets.py:76
+#: audiofield/widgets.py:90
 msgid "Channel:"
 msgstr "頻道"
 
-#: widgets.py:77
+#: audiofield/widgets.py:91
 msgid "Frequency:"
 msgstr "頻率"
 
-#: widgets.py:80
+#: audiofield/widgets.py:95
 msgid "Delete:"
 msgstr "刪除"
 
-#: widgets.py:117
+#: audiofield/widgets.py:133
 msgid "Allowed format - mp3, wav and ogg"
 msgstr "允許的格式 - mp3, wav 以及ogg"
+
+#~ msgid "English"
+#~ msgstr "英文"
+
+#~ msgid "Spanish"
+#~ msgstr "西班牙文"
