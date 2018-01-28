@@ -31,7 +31,8 @@ setup(
     package_data={},
     install_requires=[
         'celery>=3.1.7',
-        'django-celery>=3.1.1'
+        'django-celery>=3.1.1',
+        'six>=1.9',
         # -*- Extra requirements: -*-
     ],
     classifiers=[

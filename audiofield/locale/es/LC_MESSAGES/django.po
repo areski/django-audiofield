@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-17 18:29+0530\n"
+"POT-Creation-Date: 2018-01-21 11:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,128 +18,158 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:25
+#: audiofield/admin.py:37
 #, python-format
 msgid "Successfully deleted %d audio files."
 msgstr "Eliminado correctamente %d archivos de audio."
 
-#: models.py:14
-msgid "Audio Name"
+#: audiofield/fields.py:87
+msgid "not allowed filetype!"
+msgstr ""
+
+#: audiofield/fields.py:94
+msgid ""
+"not allowed : file format conversion is not allowed for same audio type "
+"(except Wav)"
+msgstr ""
+
+#: audiofield/models.py:35
+#, fuzzy
+#| msgid "Audio Name"
+msgid "audio name"
 msgstr "Nombre de audio"
 
-#: models.py:15
-msgid "Audio file label"
+#: audiofield/models.py:36
+#, fuzzy
+#| msgid "Audio file label"
+msgid "audio file label"
 msgstr "Etiqueta del audio"
 
-#: models.py:19 models.py:27
-msgid "Audio file"
+#: audiofield/models.py:39 audiofield/models.py:50
+#, fuzzy
+#| msgid "Audio file"
+msgid "audio file"
 msgstr "Archivo de audio"
 
-#: models.py:21
-msgid "Select User"
+#: audiofield/models.py:40
+msgid "user"
+msgstr ""
+
+#: audiofield/models.py:41
+#, fuzzy
+#| msgid "Select User"
+msgid "select user"
 msgstr "Seleccione Usuario"
 
-#: models.py:28
-msgid "Audio files"
+#: audiofield/models.py:47
+#, fuzzy
+#| msgid "Audio files"
+msgid "can see Audio Files"
 msgstr "Los archivos de audio"
 
-#: models.py:46
-msgid "Audio file player"
+#: audiofield/models.py:51
+#, fuzzy
+#| msgid "Audio files"
+msgid "audio files"
+msgstr "Los archivos de audio"
+
+#: audiofield/models.py:69
+#, fuzzy
+#| msgid "Audio file player"
+msgid "audio file player"
 msgstr "Reproductor de archivos de audio"
 
-#: settings.py:174
-msgid "English"
-msgstr "Inglés"
-
-#: settings.py:176
-msgid "Spanish"
-msgstr "Español"
-
-#: settings.py:177
-msgid "Portuguese"
-msgstr "Portugués"
-
-#: widgets.py:10 widgets.py:16
+#: audiofield/widgets.py:24 audiofield/widgets.py:30
 msgid "Keep original"
 msgstr "Conservar original"
 
-#: widgets.py:11
+#: audiofield/widgets.py:25
 msgid "Mono"
 msgstr "Mono"
 
-#: widgets.py:12
+#: audiofield/widgets.py:26
 msgid "Stereo"
 msgstr "Estéreo"
 
-#: widgets.py:17
+#: audiofield/widgets.py:31
 msgid "8000 Hz"
 msgstr "8000 Hz"
 
-#: widgets.py:18
+#: audiofield/widgets.py:32
 msgid "16000 Hz"
 msgstr "16.000 Hz"
 
-#: widgets.py:19
+#: audiofield/widgets.py:33
 msgid "22050 Hz"
 msgstr "22050 Hz"
 
-#: widgets.py:20
+#: audiofield/widgets.py:34
 msgid "44100 Hz"
 msgstr "44100 Hz"
 
-#: widgets.py:21
+#: audiofield/widgets.py:35
 msgid "48000 Hz"
 msgstr "48000 Hz"
 
-#: widgets.py:25
+#: audiofield/widgets.py:39
 msgid "Keep original audio file"
 msgstr "Mantener el archivo de audio original"
 
-#: widgets.py:26
+#: audiofield/widgets.py:40
 msgid "Convert to MP3"
 msgstr "Convertir a MP3"
 
-#: widgets.py:27
+#: audiofield/widgets.py:41
 msgid "Convert to WAV"
 msgstr "Convertir a WAV"
 
-#: widgets.py:28
+#: audiofield/widgets.py:42
 msgid "Convert to OGG"
 msgstr "Convertir a OGG"
 
-#: widgets.py:65
+#: audiofield/widgets.py:79
 msgid "Allowed format - mp3 wav and ogg"
 msgstr "Formato permite - mp3 wav y ogg"
 
-#: widgets.py:68 widgets.py:121
+#: audiofield/widgets.py:83 audiofield/widgets.py:141
 msgid "Currently:"
 msgstr "En la actualidad:"
 
-#: widgets.py:71 widgets.py:124
+#: audiofield/widgets.py:85 audiofield/widgets.py:143
 msgid "Change:"
 msgstr "Cambio:"
 
-#: widgets.py:73
+#: audiofield/widgets.py:87
 msgid "Upload:"
 msgstr "Subir:"
 
-#: widgets.py:75
-msgid "Convert To:"
+#: audiofield/widgets.py:89
+#, fuzzy
+#| msgid "Convert To:"
+msgid "Convert to:"
 msgstr "Convertir a:"
 
-#: widgets.py:76
+#: audiofield/widgets.py:90
 msgid "Channel:"
 msgstr "Canal:"
 
-#: widgets.py:77
+#: audiofield/widgets.py:91
 msgid "Frequency:"
 msgstr "Frecuencia:"
 
-#: widgets.py:80
+#: audiofield/widgets.py:95
 msgid "Delete:"
 msgstr "Eliminar:"
 
-#: widgets.py:117
+#: audiofield/widgets.py:133
 msgid "Allowed format - mp3, wav and ogg"
 msgstr "Formato permite - mp3, wav y ogg"
 
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugués"
