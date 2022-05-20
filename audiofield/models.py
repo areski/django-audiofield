@@ -39,6 +39,8 @@ class AudioFile(models.Model):
                             verbose_name=_('audio file'))
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'),
                              help_text=_('select user'))
+    tag = models.CharField(max_length=50, blank=True, null=True, verbose_name=_('tag'),
+                            help_text=_('tag used to categorize the audio files'))
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 

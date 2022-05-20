@@ -41,6 +41,7 @@ class AudioFileModel(TestCase):
         self.user = User.objects.get(username='admin')
         self.audiofile = AudioFile(
             name='MyAudio',
+            tag='TAG01',
             user=self.user,
         )
         self.audiofile.save()
