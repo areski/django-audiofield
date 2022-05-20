@@ -39,7 +39,7 @@ Install dependencies on Redhat/CentOS::
 Install requirements
 ====================
 
-Use PIP to install the dependencies listed in the requirments file,::
+Use PIP to install the dependencies listed in the requirements file,::
 
     $ pip install -r requirements.txt
 

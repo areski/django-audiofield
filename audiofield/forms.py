@@ -47,5 +47,5 @@ class CustomerAudioFileForm(ModelForm):
 
     class Meta:
         model = AudioFile
-        fields = ['name', 'audio_file']
+        fields = ['name', 'tag', 'audio_file', ]
         exclude = ('user',)

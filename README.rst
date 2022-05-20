@@ -48,7 +48,9 @@ Dependencies
 
 Install dependencies on Debian::
 
-    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg libav-tools
+    apt-get -y install libsox-fmt-mp3 libsox-fmt-all mpg321 dir2ogg ffmpeg
+
+Note: For Debian version 7 (Wheezy) and older, replace `ffmpeg` with `libav-tools`
 
 
 Install dependencies on Redhat/CentOS::
