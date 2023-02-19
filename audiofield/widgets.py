@@ -65,7 +65,7 @@ class AdminAudioFileWidget(AdminFileWidget):
     '''
     input_type = 'file'
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         input = super(forms.widgets.FileInput, self).render(name, value, attrs)
 
         file_select_box = add_select_box('convert_type', CONVERT_TYPE)
@@ -115,7 +115,7 @@ class CustomerAudioFileWidget(AdminFileWidget):
     '''
     input_type = 'file'
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         input = super(forms.widgets.FileInput, self).render(name, value, attrs)
 
         file_url = ''
