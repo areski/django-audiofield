@@ -15,7 +15,7 @@ from django.db.models.fields.files import FileField
 from django.db.models import signals
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from celery.utils.log import get_task_logger
 from audiofield.middleware import threadlocals
